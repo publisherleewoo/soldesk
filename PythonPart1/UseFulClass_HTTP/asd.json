@@ -1,0 +1,71 @@
+{
+    "CardBusStatisticsServiceNew": {
+        "list_total_count": 37249,
+        "RESULT": {
+            "CODE": "INFO-000",
+            "MESSAGE": "정상 처리되었습니다"
+        },
+        "row": [
+            {
+                "USE_YMD": "20151101",
+                "RTE_ID": "11110001",
+                "RTE_NO": "100",
+                "RTE_NM": "100번(하계동~용산구청)",
+                "STOPS_ID": "100000003",
+                "STOPS_ARS_NO": "01003",
+                "SBWY_STNS_NM": "명륜3가.성대입구",
+                "GTON_TNOPE": 108.0,
+                "GTOFF_TNOPE": 171.0,
+                "REG_YMD": "20151203"
+            },
+            {
+                "USE_YMD": "20151101",
+                "RTE_ID": "11110001",
+                "RTE_NO": "100",
+                "RTE_NM": "100 번(하계동~용산구청)",
+                "STOPS_ID": "101000057",
+                "STOPS_ARS_NO": "02156",
+                "SBWY_STNS_NM": "을지로입구.로얄호텔",
+                "GTON_TNOPE": 119.0,
+                "GTOFF_TNOPE": 65.0,
+                "REG_YMD": "20151203"
+            },
+            {
+                "USE_YMD": "20151101",
+                "RTE_ID": "11110001",
+                "RTE_NO": "100",
+                "RTE_NM": "100번(하계동~용산구청)",
+                "STOPS_ID": "101000060",
+                "STOPS_ARS_NO": "02159",
+                "SBWY_STNS_NM": "을지로2가.파인에빈뉴",
+                "GTON_TNOPE": 84.0,
+                "GTOFF_TNOPE": 27.0,
+                "REG_YMD": "20151203"
+            },
+            {
+                "USE_YMD": "20151101",
+                "RTE_ID": "11110001",
+                "RTE_NO": "100",
+                "RTE_NM": "100번(하계동~용산구청)",
+                "STOPS_ID": "102000173",
+                "STOPS_ARS_NO": "03267",
+                "SBWY_STNS_NM": "서빙고역교차로",
+                "GTON_TNOPE": 7.0,
+                "GTOFF_TNOPE": 7.0,
+                "REG_YMD": "20151203"
+            },
+            {
+                "USE_YMD": "20151101",
+                "RTE_ID": "11110001",
+                "RTE_NO": "100",
+                "RTE_NM": "100번(하계동~용산구청)",
+                "STOPS_ID": "101000061",
+                "STOPS_ARS_NO": "02160",
+                "SBWY_STNS_NM": "을지로3가",
+                "GTON_TNOPE": 50.0,
+                "GTOFF_TNOPE": 174.0,
+                "REG_YMD": "20151203"
+            }
+        ]
+    }
+}
