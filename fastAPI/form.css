@@ -1,0 +1,122 @@
+:root {
+    --primary-color: #007bff;
+    --bg-light: #f8f9fa;
+    --text-dark: #343a40;
+    --border-light: #ced4da;
+}
+
+
+body {
+    background-color: var(--bg-light);
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+}
+
+
+form {
+    background-color: white;
+    width: 320px;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+h3 {
+    color: var(--primary-color);
+    text-align: center;
+    margin-bottom: 25px;
+    font-size: 24px;
+}
+
+
+label {
+    display: block;
+    margin: 5px 0;
+    font-size: 14px;
+    color: var(--text-dark);
+    font-weight: bold;
+}
+
+
+input[type="text"],
+input[type="password"],
+select,
+textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--border-light);
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 15px;
+    margin-bottom: 10px;
+    transition: border-color 0.3s;
+    resize: none;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: var(--primary-color);
+    outline: none;
+    box-shadow: 0 0 0 0.1rem rgba(0, 123, 255, 0.25);
+}
+
+
+.radio-group {
+    padding: 10px 0;
+    border-top: 1px dashed var(--border-light);
+}
+
+.radio-group .label-text {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.radio-group label {
+    display: inline-flex;
+    align-items: center;
+    margin: 0 15px 0 0;
+    font-weight: normal;
+    cursor: pointer;
+}
+
+form>input[type="checkbox"] {
+    width: auto;
+    margin-right: 5px;
+    display: inline-block;
+}
+
+
+button[type=submit] {
+    width: 100%;
+    padding: 12px;
+    margin-top: 20px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+button[type=submit]:hover {
+    background-color: #0056b3;
+}
+
+textarea {
+    height: 100px;
+}
+
+form>br {
+    display: none;
+}
+
+.checkbox-group label{display: inline-block;}
