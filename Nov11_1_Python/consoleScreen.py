@@ -13,8 +13,8 @@ class ConsoleScreen:
         print("7) 판매자 검색")
         print("8) 상품 검색")
         print("9) 상품 검색")
-
         print("10) 종료")
+        print("11) 최고가상품")
         return input("뭐:")
 
     def showSearchMenu():

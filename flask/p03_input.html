@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1119</title>
+</head>
+
+<body>
+    <a href="http://195.168.9.140:8888/xy.calculate2?start=3&end=7">3단부터 7단 곱구하기</a>
+
+    <!-- form + button
+        form속에 들어있는 button을 누르면
+        form속에 들어있는 input에 쓴거를 reqParam(name을 변수명, 값을 값)
+        action에 써놓은 쪽으로 요청을 날림 
+    -->
+    <h1>GET방식</h1>
+    <form action="http://195.168.9.140:8888/xy.calculate2" method="get">
+        <input type="text" name="start" value="3">
+        <input type="text" name="end" value="7">
+        <button>ㄱㄱ</button>
+    </form>
+
+    <h1>POST방식</h1>   
+    <form action="http://195.168.9.140:8888/gugudanPost.show" method="post">
+        <input type="text" name="start" value="3">
+        <input type="text" name="end" value="7">
+        <button>확인</button>
+    </form>
+
+    
+
+</body>
+
+</html>

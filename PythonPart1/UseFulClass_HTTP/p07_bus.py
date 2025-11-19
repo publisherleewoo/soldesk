@@ -57,7 +57,7 @@ from json import loads
 # 1001~2000
 # ...
 # 41001~42000
-yy = 2023
+yy = 2017
 f = open("C:/PythoneWorkspace/PythonPart1/UseFulClass_HTTP/bus%d.csv" % yy, "a", encoding="utf-8")
 hc = HTTPConnection("openapi.seoul.go.kr:8088")
  

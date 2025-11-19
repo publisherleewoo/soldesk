@@ -67,4 +67,7 @@ if __name__ == "__main__":
                 continue
             pageNo = ConsoleScreen.showSelectPageMenu(pageCount)
             products = productDAO.get2(pageNo, searchTxt)         
-            ConsoleScreen.showProduct2(products)    
+            ConsoleScreen.showProduct2(products)  
+        elif menu == "11":  # 최고가 상품
+            pass
+            
