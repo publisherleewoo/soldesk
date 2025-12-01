@@ -22,3 +22,4 @@ news = reviewData.select(".item_newsheadline2 .cont_thumb .tit_txt") # css ì„ íƒ
 
 for n in news:
     print(n.text)
+        

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <style>
+        /* * {
+            margin: 0;
+            padding: 0;
+        } */
+    </style>
+    <script>
+        $(function () {
+
+            var paper = document.getElementById('cv')
+            var pen = paper.getContext('2d')
+           
+           
+
+            pen.fillStyle = 'red'; //칠해지는 도형색
+            pen.strokeStyle = 'blue'; //선 그릴때 펜 색
+            pen.lineWidth = 3; //선 두께
+            pen.save();
+
+            pen.shadowOffsetX = 3;
+            pen.shadowOffsetY = 3;
+            pen.shadowBlur = 5;
+            pen.shadowColor = 'green';
+
+            pen.fillRect(10, 20, 30, 40);
+            pen.beginPath();
+            pen.moveTo(40, 60)
+            pen.lineTo(140, 160)
+            pen.closePath();
+            pen.stroke()
+
+
+ 
+
+
+            const a = new Image(); // 새 Image 객체 생성
+            a.src = 'Apple64.png'; // 이미지 파일 경로 설정
+
+            a.onload = function () {
+                pen.drawImage(a, 0, 0);
+            };
+            img.onerror = function () {
+                console.error('이미지를 로드하는 데 실패했습니다.');
+            };
+
+
+        })
+
+
+    </script>
+</head>
+
+<body>
+    <canvas id="cv" width="300" height="400" style="border:1px solid black">
+
+    </canvas>
+
+
+</body>
+
+</html>

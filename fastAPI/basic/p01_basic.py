@@ -1,4 +1,4 @@
- # pip install fastapi
+# pip install fastapi
 # pip install uvicorn[standard]
 
 # 파일경로로 가서 uvicorn 파일명(확장자말고):app --host=0.0.0.0 --port=???? --reload

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            margin: 0;
+            background-color: #eee;
+            padding-top: 30px;
+        }
+        #wrap{width:300px; margin:0 auto;}
+        h1 {
+            color: #333;
+            text-align: center;
+            padding: 0px 20px
+        }
+
+        form {
+            background-color: #fff;
+            padding: 20px;
+
+            border: 1px solid #ccc;
+   
+        }
+
+
+        input[type="text"],
+        select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+
+            border: 1px solid #666;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"] {
+            background-color: #555;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            width: 100%;
+            opacity: 0.9;
+            margin-top:20px
+        }
+
+        input[type="submit"]:hover {
+            background-color: #444;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="wrap">
+        <h1>단위변환</h1>
+        <form action="http://195.168.9.140:8888/unit.convert">
+            변환할값<br />
+            <input name="a" type="text"> <br />
+            단위<br />
+            <select name="b">
+                <option value="ci"> cm->inch</option>
+                <option value="mp"> 제곱미터->평</option>
+                <option value="cf"> 섭씨->화씨</option>
+                <option value="km"> km/h->mi/h</option>
+            </select>
+            <input type="submit" value="변환">
+        </form>
+    </div>
+</body>
+
+</html>

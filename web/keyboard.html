@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+ 
+<head>
+    <meta charset="UTF-8">
+    <title>1128</title>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"
+    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <style>
+        h2 {
+            position: absolute;
+            
+        }
+    </style>
+    <script>
+        $(function () {
+            // keydown
+            // keyup
+            $("input").keydown(function (e) {
+                if (e.keyCode == 65) {
+                    return false;
+                }
+                // e.keyCode : 키보드 아스키값
+                $("h1").text("keydown : " + e.keyCode);
+            });
+            $("input").keyup(function (e) {
+                if (e.keyCode == 13) {
+                    alert("엔터침");
+                }
+                $("h1").text("keydown : " + e.keyCode);
+            });
+            $("html").keydown(function (e) {
+                if (e.keyCode == 37) {
+                    var x = $("h2").offset().left - 3;
+                    $("h2").css("left", x + "px")
+                } else if (e.keyCode == 38) {
+                    var y = $("h2").offset().top - 3;
+                    $("h2").css("top", y + "px")
+                } else if (e.keyCode == 39) {
+                    var x = $("h2").offset().left + 3;
+                    $("h2").css("left", x + "px")
+                } else if (e.keyCode == 40) {
+                    var y = $("h2").offset().top + 3;
+                    $("h2").css("top", y + "px")
+                }
+ 
+            })
+        });
+    </script>
+</head>
+ 
+<body>
+    <input>
+    <h1></h1>
+    <h2>ㅎㅎㅎ</h2>
+</body>
+ 
+</html>

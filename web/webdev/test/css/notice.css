@@ -1,0 +1,25 @@
+#noticeBBS{
+    width: 400px; 
+
+    /* �쒕ぉ以� */  
+    background-color: black;
+    color: orange;
+
+    /* td媛꾩쓽 媛꾧꺽 */
+    border-spacing: 0px;
+}
+
+#noticeBBS .dataTr{
+    /* �댁슜以� */
+    background-color: white;
+    color: black;
+    cursor: pointer;
+}
+
+#noticeBBS .dataTr:hover{
+    background-color: khaki;
+}
+
+#noticeBBS td{
+    border-bottom: black solid 1px;
+}

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>1128</title>
+    <script src="https://cdn.canvasjs.com/canvasjs.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <style>
+
+    </style>
+    <script>
+        $(function () {
+
+            $.ajax({
+                url: "http://openapi.seoul.go.kr:8088/575a4655496b636839386f58586542/xml/RealtimeCityAir/1/25/",
+                success: function (xData) {
+                    var pm10Ar = []
+                    var pm25Ar = []
+                    $(xData).find('row').each(function (i, x) {
+                        var SAREA_NM = $(x).find('SAREA_NM').text()
+                        var MSRSTN_NM = $(x).find('MSRSTN_NM').text()
+                        var PM = $(x).find('PM').text()
+                        var FPM = $(x).find('FPM').text()
+                        var CAI_GRD = $(x).find('CAI_GRD').text()
+
+                        var tr = $('<tr></tr>').append("<td>" + SAREA_NM + "</td>").append("<td>" + MSRSTN_NM + "</td>").append("<td>" + PM + "</td>").append("<td>" + FPM + "</td>").append("<td>" + CAI_GRD + "</td>")
+                        $('table').append(tr)
+
+                        pm10Ar[i] = { y: PM * 1, label: MSRSTN_NM }
+                        pm25Ar[i] = { y: FPM * 1, label: MSRSTN_NM }
+           
+                    })
+
+                    var chart = new CanvasJS.Chart("chartContainer",
+                        {
+                            title: {
+                                text: "서울시 미세먼지"
+                            },
+                            data: [
+                                {
+                                    type: "stackedColumn",
+                                    dataPoints: pm10Ar
+                                }, {
+                                    type: "stackedColumn",
+                                    dataPoints: pm25Ar
+                                }
+                            ]
+                        });
+
+                    chart.render();
+
+
+
+                },
+                error: function (request, status, error) {
+                    console.log(error);
+
+                }
+            })
+
+
+
+
+
+
+
+
+        })
+
+
+    </script>
+</head>
+
+<body>
+
+
+
+    <div id="chartContainer" style="height: 300px; width: 100%;"></div>
+    <table border="1">
+        <tr>
+            <th>권역</th>
+            <th>구</th>
+            <th>미세먼지</th>
+            <th>초미세먼지</th>
+            <th>상태</th>
+        </tr>
+
+    </table>
+</body>
+
+</html>

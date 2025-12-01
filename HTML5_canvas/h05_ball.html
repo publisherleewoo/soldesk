@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <style>
+        /* * {
+            margin: 0;
+            padding: 0;
+        } */
+    </style>
+    <script>
+        $(function () {
+
+            var paper = document.getElementById('cv')
+            var pen = paper.getContext('2d')
+
+            var ballX = 0;
+            var ballY = 0;
+            var barX = 100;
+            var xx = $('#cv').offset().left + 2
+
+            var xSpd = 3;
+            var ySpd = 3;
+            const ball = new Image();
+            ball.src = 'ball.png';
+            ball.onload = function () {
+                var t = setInterval(function () {
+                    pen.save()
+
+                    pen.fillStyle = "#00000010"
+                    pen.fillRect(0, 0, 300, 400)
+
+                    pen.shadowOffsetX = 3;
+                    pen.shadowOffsetY = 3;
+                    pen.shadowBlur = 15;
+                    pen.shadowColor = 'yellow';
+
+                    // 오른쪽벽
+                    if (ballX >= 270) {
+                        xSpd = -3;
+                    }
+                    if (ballX <= 0) {
+                        // 왼쪽별
+                        xSpd = 3;
+                    }
+                    if (
+
+                        ballY > 355 &&
+                        ballX > barX - 15 &&
+                        ballX < barX + 85
+                    ) {
+                        ySpd *= -1;
+                    }
+                    if (ballY >= 370) {
+                        // 아래쪽바닥
+                        ySpd = -3;
+                        clearInterval(t)
+                    }
+                    if (ballY <= 0) {
+                        // 윗쪽벽
+                        ySpd = 3;
+                    }
+
+
+                    ballX += xSpd
+                    ballY += ySpd
+
+                    pen.drawImage(ball, ballX, ballY);
+
+                    pen.fillStyle = 'white'
+                    pen.fillRect(barX, 380, 100, 20)
+
+                    pen.restore();
+
+                }, 15)
+
+                $('#cv').mousemove(function (e) {
+                    barX = e.pageX - xx - 50;
+                    
+                })
+
+
+            };
+
+
+
+
+
+            ball.onerror = function () {
+                console.error('이미지를 로드하는 데 실패했습니다.');
+            };
+        })
+    </script>
+</head>
+
+<body>
+    <canvas id="cv" width="300" height="400" style="border:2px solid black">
+
+    </canvas>
+
+
+</body>
+
+</html>

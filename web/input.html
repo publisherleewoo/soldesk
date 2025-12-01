@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"
+    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+<style>
+    /* * {
+            margin: 0;
+            padding: 0;
+        } */
+</style>
+<script>
+    $(function () {
+        var mail = 'naver.com'
+        $('select').change(function (e) {
+            mail = $(this).val()
+            if (mail == '직접입력') {
+                $('body').append('<input id="newIpt"/>');
+                $('#newIpt').change(function () {
+                    mail = $(this).val()
+                })
+            }else{
+                $('#newIpt').remove()
+            }
+        })
+
+        $("button").on('click', function () {
+            alert($('input').val() + '@' + mail)
+        })
+    })
+</script>
+
+<body>
+
+    이메일
+    <input />@
+    <select>
+        <option>naver.com</option>
+        <option>gmail.com</option>
+        <option>직접입력</option>
+
+    </select><br />
+    <button>가입</button>
+</body>
+
+</html>

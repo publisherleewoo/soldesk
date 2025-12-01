@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            font-size: medium
+        }
+
+        p#t1 {
+            font-size: 1.0em
+        }
+
+        p#t2 {
+            font-size: 1.5em
+        }
+
+        p#t3 {
+            font-size: 2.0em
+        }
+
+        p::before {
+            content: "이것은 중요합니다 - ";
+            background: yellowgreen;
+            color: red;
+            font-weight: bold;
+        }
+
+        p.test {
+            width: 11em;
+            border: 1px solid black;
+            border-radius: 20px;
+            word-wrap: break-word
+        }
+    </style>
+</head>
+
+<body>
+    <h1>웹프로그래밍</h1>
+    <p id="t1">html 학습하기</p>
+    <p id="t2">css 학습하기</p>
+    <p id="t3">javascript 학습하기</p>
+
+    <p class="test"> word-wrap: break-word 매우 긴 단어가 있는경우 자동으로 잘라준다 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
+</body>
+
+</html>

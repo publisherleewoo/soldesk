@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=
+    , initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #container1 {
+            /* 반응형의 필수다. auto auto auto */
+            display: grid;
+            grid-template-columns: auto auto auto;
+        }
+
+
+        #container2 {
+            /* 반응형의 필수다. auto auto auto */
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+        }
+
+        #container3 {
+            /* 반응형의 필수다. auto auto auto */
+            display: grid;
+            grid-template-columns: 1fr 2fr 2fr;
+        }
+
+
+        .item {
+            border: 1px solid black;
+            padding: 20px;
+            text-align: center;
+        }
+
+
+  
+    </style>
+</head>
+
+<body>
+    <h1>grid-template-columns auto auto auto;</h1>
+    <div id="container1">
+        <div class="item">1</div>
+        <div class="item">2</div>
+        <div class="item">3</div>
+        <div class="item">4</div>
+        <div class="item">5</div>
+        <div class="item">6</div>
+    </div>
+    <br /><br /><br />
+    <h1>grid-template-columns 1fr 1fr 1fr;</h1>
+    <div id="container2">
+        <div class="item">1</div>
+        <div class="item">2</div>
+        <div class="item">3</div>
+        <div class="item">4</div>
+        <div class="item">5</div>
+        <div class="item">6</div>
+    </div>
+
+    <br /><br /><br />
+    <h1>grid-template-columns 1fr 2fr 2fr;</h1>
+    <div id="container3">
+        <div class="item">1</div>
+        <div class="item">2</div>
+        <div class="item">3</div>
+        <div class="item">4</div>
+        <div class="item">5</div>
+        <div class="item">6</div>
+    </div>
+
+    <br /><br /><br />
+  
+
+
+
+
+
+
+</body>
+
+</html>

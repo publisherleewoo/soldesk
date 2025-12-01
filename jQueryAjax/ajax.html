@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>1128</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <style>
+
+    </style>
+    <script>
+        $(function () {
+            
+            //ajax 외부데이터 활용 불가
+            // Cross-Domain AJAX : 외부데이터를 활용하는 AJAX
+            // 서버측에서 Access-Control-Allow-Origin 응답헤더 셋팅해놨으면 받아올 수 있음
+            
+            $.ajax({
+                url: "http://127.0.0.1:8000/xmll.test",
+                success: function (xData) {
+                    $(xData).find('snack').each(function(i,x){
+                        var snack = $(x)
+                        var s_name = snack.find('s_name').text()
+                        var s_price = snack.find('s_price').text()
+                        var tr = $('<tr></tr>').append('<td>'+s_name+'</td>').append('<td>'+s_price+'</td>')
+                        $('table').append(tr)
+                        
+                    })
+                },
+                error: function (request, status, error) {
+                console.log(error);
+                    
+                }
+
+            })
+
+        })
+    </script>
+</head>
+
+<body>
+    <table border="1">
+        <tr>
+            <th>품명</th>
+            <th>가격</th>
+        </tr>
+    </table>
+</body>
+
+</html>

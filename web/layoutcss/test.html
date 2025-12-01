@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            box-sizing: border-box;
+            padding: 0px;
+            margin: 0px;
+
+
+        }
+
+        #container {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-areas:
+                "header header header"
+                "nav section aside"
+                "footer footer footer";
+        }
+
+        header {
+            grid-area: header;
+            padding: 20px;
+            background: rgb(119, 59, 136);
+            color: white
+        }
+
+        nav {
+            grid-area: nav;
+        }
+
+        nav ul {
+            padding-left: 20px;
+            margin-right: 30%;
+        }
+
+        nav li {
+            list-style: none;
+            background: green;
+            margin-bottom: 10px;
+        }
+
+        nav li a {
+            display: block;
+            padding: 5px
+        }
+
+        section {
+            grid-area: section;
+            background: white;
+        }
+
+        aside {
+            grid-area: aside;
+            background: brown;
+            text-align: center;
+            margin-bottom: 20px
+        }
+
+        footer {
+            grid-area: footer;
+            background: greenyellow;
+            text-align: center;
+            padding: 20px;
+        }
+
+        @media screen and (max-width: 800px) {
+            #container {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                grid-template-areas:
+                    "header header "
+                    "nav section "
+                    "aside aside"
+                    "footer footer";
+            }
+        }
+
+        @media screen and (max-width: 360px) {
+            #container {
+                display: grid;
+                grid-template-columns: 1fr;
+                grid-template-areas:
+                    "header "
+                    "nav" 
+                    "section "
+                    "aside"
+                    "footer";
+            }
+              nav ul {
+          margin: 0;
+          padding: 0;
+   
+            }
+        }
+
+
+
+    </style>
+
+</head>
+
+<body>
+    <div id="container">
+        <header>
+            <h1>쇼핑몰</h1>
+        </header>
+        <nav>
+            <ul>
+                <li><a href="#">메뉴1</a></li>
+                <li><a href="#">메뉴2</a></li>
+                <li><a href="#">메뉴3</a></li>
+                <li><a href="#">메뉴4</a></li>
+            </ul>
+        </nav>
+        <section>
+            <h2>쇼핑몰 정보</h2>
+            <p> 최저가로 판매합니다</p>
+        </section>
+        <aside>
+            <h3>위치</h3>
+            <p>서울시 종로구 1번지</p>
+            <h3>영업날짜</h3>
+            <p>365일 영업합니다</p>
+            <h3>고객의소리</h3>
+            <p>의견을 적어주세요</p>
+        </aside>
+
+        <footer>
+            반응형 웹을 사용하여 만들었습니다
+        </footer>
+    </div>
+</body>
+
+</html>

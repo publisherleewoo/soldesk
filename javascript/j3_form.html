@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function checkk() {
+            var nameInput = document.ff.name;
+
+            if (!nameInput.value) {
+                alert("품명 필수");
+                nameInput.focus();
+                return false
+            }
+
+            if (nameInput.value.length < 3) {
+                alert("3글자 이상");
+                nameInput.value = "";
+                nameInput.focus();
+                return false;
+            }
+            if (!priceField.value) {
+                alert("가격 필수")
+                priceField.focus();
+                return false;
+            }
+            if (isNaN(priceField.value)) {
+                alert("가격 필수")
+                priceField.value = ""
+                priceField.focus();
+                return false;
+            }
+
+            
+
+            return true
+        }
+    </script>
+
+</head>
+
+<body>
+    <form action="http://127.0.0.1:8888/product.reg" onsubmit="return checkk" name="ff">
+        품명:<input name="p_name" type="text" maxlength="10" autofocus><br />
+        가격:<input name="p_price" type="text"><br />
+        <button>등록</button>
+    </form>
+
+
+</body>
+
+</html>

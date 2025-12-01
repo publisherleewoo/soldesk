@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+
+<body>
+    <form action="http://127.0.0.1:8000/bmi" method="post" enctype="multipart/form-data" >
+        <div>
+            <h1>비만도검사</h1>
+            <label for="u_name">이름:</label><input id="u_name" name="u_name"><br />
+            <label for="u_height">키:</label><input id="u_height" name="u_height"><br />
+            <label for="u_weight">몸무게:</label><input id="u_weight" name="u_weight"><br />
+            <label for="u_photo">사진:</label><input id="u_photo" name="u_photo" type="file"><br />
+            <button type="submit">결과보기</button>
+        </div>
+    </form>
+</body>
+
+</html>

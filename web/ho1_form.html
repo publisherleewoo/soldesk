@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        input[type="text"]:hover {
+            background-color: red;
+        }
+
+        input[type="text"]:focus {
+            background-color: green;
+        }
+
+        input[type="submit"] {
+            background-color: #04AA6D;
+            border: none;
+            color: white;
+            padding: 16px 32px
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        header
+    </header>
+    <aside>
+        aside
+    </aside>
+    <section>
+        section
+    </section>
+
+    <form action="test.jsp" method="post">
+        <fieldset>
+            <input type="text" name="id" value="hi"><br>
+            <input type="password" name="pass" value=""><br>
+            <textarea name="feedback" rows="5" cols="50">textarea</textarea>
+            <button onclick="alert('안녕하세요'); return false;">버튼</button>
+        </fieldset>
+
+        <fieldset>
+            <legend>radio</legend>
+            <input type="radio" name="gender" value="male"> 남성<br />
+            <input type="radio" name="gender" value="female"> 여성<br />
+        </fieldset>
+        <fieldset>
+            <legend>checkbox</legend>
+            <input type="checkbox" name="fruits" value="apple"> 사과<br />
+            <input type="checkbox" name="fruits" value="grape"> 포도<br />
+            <input type="checkbox" name="fruits" value="orange"> 오렌지<br />
+        </fieldset>
+        <fieldset>
+            <legend>select > option</legend>
+            <select>
+                <option value="bmw">bmw</option>
+                <option value="benz">benz</option>
+                <option value="hyundai">hyundai</option>
+                <option value="kia">kia</option>
+            </select>
+        </fieldset>
+        <fieldset>
+            <legend>datalist > option</legend>
+            <input list="browsers" name="browsers">
+            <datalist id="browsers">
+                <option value="bmw">bmw</option>
+                <option value="benz">benz</option>
+                <option value="hyundai">hyundai</option>
+                <option value="kia">kia</option>
+            </datalist>
+        </fieldset>
+
+
+        <input type="datetime-local" name="" id=""> <br/>
+        <input type="datetime" name="" id=""><br/>
+        <input type="file" name="" id=""><br/><br/>
+
+        <input type="submit" value="submit"><br>
+
+    </form>
+
+
+    <footer>
+        footer
+    </footer>
+
+</body>
+
+</html>

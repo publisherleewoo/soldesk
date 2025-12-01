@@ -29,7 +29,7 @@ resBody = res.read()
 txt = resBody.decode()
 hc.close()
 #################
-con = connect("leewoo/3214@195.168.9.143:1521/xe")
+con = connect("leewoo/3214@195.168.9.198:1521/xe")
 
 seoulDustData = fromstring(resBody)
 rowsss = seoulDustData.iter("row")

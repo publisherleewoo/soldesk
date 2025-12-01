@@ -1,0 +1,11 @@
+.aMenu {
+    width: 200px;
+    box-shadow: 3px 3px 3px black;
+    margin: 10px;
+    
+    float: left; /* 寃⑹옄�� 諛곗튂 */
+}
+
+.aMenu img {
+    max-width: 180px;
+}

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>1128</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <style>
+
+    </style>
+    <script>
+        $(function () {
+            // API KEY = NrUNiUV8RrElmIXMx4eO
+            // ps = 012diLJrbj
+            // 서버에서 Access-Control-Allow-Origin 셋팅을 안해놔서 cors 에러날때 해결방법은 Proxy 서버 구현
+            
+            $('button').click(function () {
+                $.ajax({
+                    url: "http://127.0.0.1:8000/naver.shopping.get",
+                    data:{"q":$("input").val()},
+                    success: function (xData) {
+                        console.log(xData);
+                        
+                    },
+                    error: function (request, status, error) {
+
+
+                    }
+
+                })
+            })
+
+        })
+    </script>
+</head>
+
+<body>
+    <input/>
+    <button>버튼</button>
+</body>
+
+</html>

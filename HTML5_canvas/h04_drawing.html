@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <style>
+        /* * {
+            margin: 0;
+            padding: 0;
+        } */
+    </style>
+    <script>
+
+        $(function () {
+
+            var paper = document.getElementById('cv')
+            var pen = paper.getContext('2d')
+            // var flag = true
+
+            // $('#cv').on('mousedown', function (e) {
+            //     if (flag) { //true
+            //         pen.fillRect(e.pageX - 10, e.pageY - 10, 5, 5)
+            //         $('#cv').on('mousemove', function (e) {
+            //             pen.fillRect(e.pageX - 10, e.pageY - 10, 5, 5)
+            //         })
+            //     } else {
+            //         $('#cv').off('mousemove')
+            //     }
+            //     flag = !flag
+            // })
+
+            var xx = $('#cv').offset().left + 2
+            var yy = $('#cv').offset().top + 2
+            var startX;
+            var startY;
+            var endX;
+            var endY;
+
+
+            var drawMode = false;
+
+            $('#cv').mousedown(function (e) {
+                drawMode = true
+                startX = e.pageX - xx;
+                startY = e.pageY - yy;
+            })
+
+            $('#cv').mousemove(function (e) {
+                if (drawMode) {
+                    endX = e.pageX - xx;
+                    endY = e.pageY - yy;
+                    pen.beginPath();
+                    pen.moveTo(startX, startY)
+                    pen.lineTo(endX, endY)
+                    pen.closePath();
+                    pen.stroke()
+                    startX = endX;
+                    startY = endY;
+
+                }
+            })
+
+            $('#cv').mouseup(function (e) {
+                drawMode = false
+            })
+
+
+
+            // var paper = document.getElementById('cv')
+            // var pen = paper.getContext('2d')
+            // $('#cv').on('click', function () {
+            //     $('#cv').on('mousemove', function (e) {
+            //         pen.fillRect(e.pageX - 10, e.pageY - 10, 10, 10)
+            //          $('#cv').on('click', function () {
+            //             $(this).off()
+            //          })
+            //     })
+
+            // })
+
+
+
+        })
+
+
+
+
+
+
+    </script>
+</head>
+
+<body>
+    <canvas id="cv" width="300" height="400" style="border:2px solid black">
+
+    </canvas>
+
+
+</body>
+
+</html>

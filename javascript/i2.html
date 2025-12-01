@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="leeValidChecker.js"></script>
+    <script src="i2check.js"></script>
+</head>
+
+<body>
+    <form action="https://www.naver.com" onsubmit="return i2check()" name="i2joinForm">
+        id :<input name="id"><br>
+        pw :<input name="pw" type="password" maxlength="10"><br>
+        pwChK :<input name="pwChK" type="password" maxlength="10"><br>
+        나이 :<input name="age" type="type" maxlength="3"><br>
+        프사 :<input name="photo" type="file"><br>
+
+        <button>가입</button>
+
+    </form>
+</body>
+
+</html>

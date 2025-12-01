@@ -1,0 +1,78 @@
+@font-face {
+    /*
+        CSS3�� 異붽��� �뱁룿�� 湲곕뒫
+            �ъ슜�먯뺨�� �ㅼ튂媛� �덈릺�댁엳�대룄 �고듃 �ъ슜 媛��ν븯寃�
+            1) CSS3�� 異붽��� 湲곕뒫 -> IE�먯꽌 �덈맖
+            2) �고듃�뚯씪 �⑸웾�� �곷떦�� ��, �쒕쾭�먯꽌 �ъ슜�먯뿉寃� �고듃�뚯씪 �쒓났
+                �쒕쾭媛� �먮━硫�?
+            -> �ㅻТ�먯꽌�� �대�吏�濡� �묒뾽
+    */
+    font-family: "dm";
+    src: url("DOSMyungjo.ttf");
+}
+
+a {
+    text-decoration: none;
+}
+
+body {
+    /* 湲곕낯 �щ갚 �쒓굅 */
+    margin: 0px;
+    padding: 0px;
+}
+
+#siteTitleArea {
+    width: 100%;
+    position: fixed;
+    background-color: #ffffffcc;
+}
+
+#siteTitle {
+    font-family: "dm";
+    width: 1200px; /* 1280 x 1024 */
+    font-size: 30pt;
+    height: 80px;
+    text-shadow: 2px 2px 2px orange;
+    font-weight: 900; /* 援듦쾶 */
+}
+
+#siteMenuArea {
+    background-color: #000000;
+}
+
+#siteMenu {
+    width: 1200px;
+    height: 40px;
+}
+
+#siteMenu a {
+    /*
+        �띿꽦紐� �쒓컙 �띾룄議곗젅
+                    ease-in : �먯젏鍮⑤씪吏�
+                    ease-out : �먯젏�먮젮吏�
+                    linear : �깆냽
+        CSS3�� 異붽���...
+    */
+    transition: all 0.5s ease-in;
+    color: orange;
+    margin-left: 20px;
+    font-family: "dm";
+}
+#siteMenu a:hover{
+    color:white;
+    text-shadow: 0px 0px 5px orange;
+}
+#siteContentArea{
+    /* �⑤룆 �뚯씠釉� 媛��대뜲 �뺣젹 */
+    margin-left: auto;
+    margin-right: auto;
+
+    padding-top: 140px;
+
+    width: 1200px;
+}
+
+::-webkit-scrollbar{
+    /* �щ＼, �ｌ��먯꽌留� */
+    display: none;
+}
