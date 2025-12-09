@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script src="http://195.168.9.246:9999/socket.io/socket.io.js"></script>
+ 
+    <script>
+ 
+        function getProduct(){
+            $.ajax({
+                url:'http://195.168.9.246:8888/product.get',
+                success:function(result){
+                    $('table').empty();
+                    $.each(result,function(i,p){
+                        var td1= $('<td></td>').text(p.name);
+                        var td2= $('<td></td>').text(p.price);
+                        var tr= $('<tr></tr>').append(td1,td2);
+                        $('table').append(tr)
+                    })
+                }
+            })
+        }
+
+        $(function () {
+            var socket = io.connect('http://195.168.9.246:9999')
+            getProduct()
+            $("button").click(function(){
+                var name = $("#nameInput").val();
+                var price = $("#priceInput").val();
+
+                $.ajax({
+                    url:"http://195.168.9.246:8888/product.reg",
+                    data:{'name':name,'price':price},
+                    success:function(result){
+                        socket.emit('reg','ok')
+                        alert(result.result)
+                        $("#nameInput").val("");
+                        $("#priceInput").val("");
+                        getProduct()
+                    }
+                })
+            })
+
+            socket.on('reg2',function(msg){
+                getProduct()
+            })
+
+
+
+        })
+    </script>
+</head>
+
+<body>
+    이름:<input id="nameInput"><br/>
+    가격:<input id="priceInput"><br/>
+    <button>등록</button>
+    
+    <table border="1">
+    </table>
+
+</body>
+
+</html>
