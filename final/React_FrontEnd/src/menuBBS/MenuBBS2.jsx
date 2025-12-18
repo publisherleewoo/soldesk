@@ -18,16 +18,20 @@ const MenuBBS2 = () => {
       price: null,
       desc: null,
    });
-   // 버튼 누른 숫자의 값을 스테이트에 저장해서 getMenu(안에 넣기)
 
    useEffect(() => {
       getMenu(nowPage);
       socket.on("updatedSrv", function () {
+         alert("updatedSrv 실행");
          getMenu(nowPage);
       });
-
+      socket.on("deletedSrv", function () {
+         alert("deletedSrv 실행");
+         getMenu(1);
+      });
       return () => {
          socket.off("updatedSrv");
+         socket.off("deletedSrv");
       };
    }, [getMenu, nowPage]);
 
@@ -105,8 +109,27 @@ const MenuBBS2 = () => {
             </LiComponent>
          );
       }
-      return <ul>{items}</ul>;
-   }, [pageCount, getMenu]);
+      return (
+         <ul>
+            {"보이는 페이지 : " + nowPage}
+            {items}
+         </ul>
+      );
+   }, [pageCount, getMenu, nowPage]);
+
+   const deleteMenu = (name) => {
+      const newData = data.filter((d) => d.n !== name);
+      setData(newData);
+      axios
+         .get(`http://195.168.9.112:8888/menu.delete?name=${name}`)
+         .then((res) => {
+            if (res.data.msg === "삭제성공") {
+               socket.emit("deleted", "reg");
+               getMenu(1);
+            }
+         })
+         .catch((err) => alert(err));
+   };
 
    return (
       <div id="MenuBBS">
@@ -152,7 +175,12 @@ const MenuBBS2 = () => {
                {data &&
                   data.map((d, i) => {
                      return (
-                        <tr key={i}>
+                        <tr
+                           key={i}
+                           onClick={() => {
+                              deleteMenu(d.n);
+                           }}
+                        >
                            <td>{d.n}</td>
                            <td>{d.p}</td>
                            <td>{d.d}</td>
