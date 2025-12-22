@@ -19,7 +19,7 @@ const Login = () => {
             // setLeeJWT(res.data.leeJWT)  리덕스같은 전역으로 실행가능할듯
             sessionStorage.setItem("myJWT", res.data.leeJWT);
             setStudent({ name: "", age: "" });
-            alert("만들었음")
+            alert("만들었음");
          })
          .catch((err) => {
             alert(err);
@@ -48,6 +48,23 @@ const Login = () => {
          .catch((err) => alert(err));
    };
 
+   const updateJWT = () => {
+     axios
+         .get(
+            `http://localhost:9999/student.jwt.update?jwt=${sessionStorage.getItem(
+               "myJWT"
+            )}`
+         )
+         .then((res) =>{
+            console.log(res.data);
+            sessionStorage.setItem('myJWT',res.data)
+         })
+         .catch((err) => alert(err));
+   };
+   const deleteJWT = () => {
+    sessionStorage.removeItem('myJWT')
+   };
+
    return (
       <div>
          <input
@@ -67,6 +84,8 @@ const Login = () => {
          <button onClick={clickBtn}>JWT만들기</button>
          <button onClick={showStudent}>JWT확인하기</button>
          <button onClick={showStudent2}>JWT복화로풀기</button>
+         <button onClick={updateJWT}>JWT갱신하기</button>
+         <button onClick={deleteJWT}>JWT삭제하기</button>
       </div>
    );
 };
