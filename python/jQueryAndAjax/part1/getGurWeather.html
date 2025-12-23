@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{margin: 0;padding: 0;}
+        div{position: absolute; left:0; top:0}
+    </style>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script>
+        $(function () {
+            // baff8f3c6cbc28a4024e336599de28c4
+            // https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API key}
+
+            navigator.geolocation.getCurrentPosition(function (loc) {
+                var url = `https://api.openweathermap.org/data/2.5/weather?lat=${loc.coords.latitude}&lon=${loc.coords.longitude}&appid=baff8f3c6cbc28a4024e336599de28c4&units=metric&lang=kr`
+                $.getJSON(url, function (xData) {
+                    $('h1').text(xData.weather[0].description)
+                    $('img').attr('src','https://openweathermap.org/img/wn/'+xData.weather[0].icon+'.png')
+                    $('h3').text(xData.main.temp+"℃")
+                })
+
+                $(document).mousemove(function(e){
+                    $('div').css({'left':e.pageX+3,'top':e.pageY+3})
+                })
+
+                //description, temp ->마우스따라다니게, img
+
+                // $.ajax({
+                //     url: "https://api.openweathermap.org/data/2.5/weather",
+                //     data: {
+                //         'lat': loc.coords.latitude,
+                //         'lon': loc.coords.longitude,
+                //         'appid': "baff8f3c6cbc28a4024e336599de28c4",
+                //         'units': 'metric',
+                //         'lang': 'kr'
+                //     },
+                //     success: function (xData) {
+                //         console.log(xData);
+
+                //     },
+                //     error: function (request, status, error) {
+                //         alert(error);
+
+                //     }
+
+                // })
+            })
+        })
+    </script>
+</head>
+
+<body>
+    <div>
+    <h1></h1>
+    <img>
+    <h3></h3>
+    </div>
+</body>
+
+</html>

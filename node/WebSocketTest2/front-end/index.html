@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css" />
+    <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script src="https://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
+    <script src="http://localhost:9999/socket.io/socket.io.js"></script>
+    <script>
+        $(function () {
+            var sockect = io.connect('http://localhost:9999')
+            var paper = document.getElementById('cv')
+            var pen = paper.getContext('2d')
+
+            var xx = $('#cv').offset().left + 2
+            var yy = $('#cv').offset().top + 2
+            var startX;
+            var startY;
+            var endX;
+            var endY;
+
+
+            var drawMode = false;
+
+            $('#cv').mousedown(function (e) {
+                drawMode = true
+                startX = e.pageX - xx;
+                startY = e.pageY - yy;
+            })
+
+
+            $('#cv').mousemove(function (e) {
+              
+                if (drawMode) {
+                    endX = e.pageX - xx;
+                    endY = e.pageY - yy;              
+                }
+                
+                var data = { "startX": startX, "startY": startY, "endX": endX, "endY": endY }
+                sockect.emit('clientmousedown', data)
+                startX = endX
+                startY = endY
+
+            })
+
+            $('#cv').mouseup(function (e) {
+                drawMode = false
+            })
+
+            sockect.on("servermousedown", function (res) {
+                pen.beginPath();
+                pen.moveTo(res.startX, res.startY)
+                pen.lineTo(res.endX, res.endY)
+                pen.closePath();
+                pen.stroke()
+            })
+
+
+
+
+        })
+
+
+
+
+
+
+    </script>
+</head>
+
+<body>
+    <canvas id="cv" width="300" height="400" style="border:2px solid black">
+
+    </canvas>
+
+
+</body>
+
+</html>

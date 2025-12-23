@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bxslider@4.2.17/dist/jquery.bxslider.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bxslider@4.2.17/dist/jquery.bxslider.min.js"></script>
+    <script>
+        $(function () {
+            $('button').click(function (e) {
+                var searchQuery = $('input').val();
+                var s = $(".slider").bxSlider({
+                    auto: true,
+                    minSlides: 3,
+                    maxSlides: 4,
+                    slideWidth: 170,
+                    slideMargin: 10
+
+                });
+                $.ajax({
+                    url: 'https://dapi.kakao.com/v3/search/book',
+                    data: { query: searchQuery },
+                    headers: { 'Authorization': 'KakaoAK ' + '4728978749201b35c97c6c303ce804b4' },
+
+                    success: function (bookData) {
+                        $("table").empty()
+                        $(".slider").empty()
+
+                        $.each(bookData.documents, function (i, b) {
+                            var td1 = $('<td></td>').text(b.title + "(" + b.price + "원)")
+                            var img = $("<img>").attr("src", b.thumbnail)
+                            var td2 = $("<td></td>").append(img)
+                            var tr = $("<tr></tr>").append(td1, td2)
+                            $('table').append(tr)
+                            var img2 = $("<img>").attr("src", b.thumbnail).attr('title', b.title + "(" + b.price + "원)");
+                            var div = $('<div></div>').append(img2);
+                            $('.slider').append(div)
+
+                        })
+                        s.reloadSlider();
+                    },
+                })
+            })
+            $('input').keyup(function (e) {
+                if (e.keyCode == 13) {
+                    $('button').trigger('click');
+                }
+            });
+
+        });
+
+
+    </script>
+</head>
+
+<body>
+
+
+    <div class="slider">
+
+    </div>
+
+
+    <input />
+    <button>검색</button>
+    <table border="1">
+        <tr>
+
+        </tr>
+    </table>
+</body>
+
+</html>

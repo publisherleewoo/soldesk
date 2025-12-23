@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css" />
+    <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script src="https://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
+    <link rel="stylesheet" href="./css/index.css" />
+    <script src="./js/index.js"></script>
+   
+<body>
+    <div data-role="page" id="titlePage">
+        <div data-role="header" data-position="fixed">
+            <h1>쇼핑몰</h1>
+        </div>
+        <div data-role="content">
+            <a href="#menuPage" data-transition="flow">
+                <img src="./img/jjan.jpg" id="titleImg">
+            </a>
+        </div>
+    </div>
+
+
+    <div data-role="page" id="menuPage">
+        <div data-role="header" data-position="fixed">
+            <a href="#titlePage" data-icon="arrow-l" data-transition="turn">뒤로</a>
+            <h1>쇼핑몰</h1>
+        </div>
+        <div data-role="content">
+            <ul data-role="listview">
+                <li><a id="goSellerPageA" href="#sellerPage" data-transition="flow">판매자</a></li>
+                <li><a id="goProductPageA" href="#product" data-transition="flow">상품</a></li>
+                <li><a id="goProductPageB" href="#product2" data-transition="flow">상품2</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div data-role="page" id="sellerPage">
+        <div data-role="header" data-position="fixed">
+            <a href="#menuPage" data-icon="arrow-l" data-transition="turn">뒤로</a>
+            <h1>판매자</h1>
+        </div>
+        <div data-role="content">
+            <input id="s_name" placeholder="이름">
+            <input id="s_birthday" placeholder="생일">
+            <input id="s_addr" placeholder="집주소">
+            <button id="s_btn">등록</button>
+            <hr>
+
+            <input id="sellerSearchInput" placeholder="검색">
+            <ul id="s_bbs" data-role="listview" data-inset="true">
+
+            </ul>
+            <table id="sellerPageControlTbl">
+                <tr>
+                    <td align="center"></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <div data-role="page" id="sellerDetailPage">
+        <div data-role="header" data-position="fixed">
+            <a href="#menuPage" data-icon="arrow-l" data-transition="turn">뒤로</a>
+            <h1>판매자정보</h1>
+        </div>
+        <div data-role="content" >
+            번호
+            <input id="sellerNo" readonly>
+            이름
+            <input id="sellerName" >
+            생일
+            <input id="sellerBirthday" readonly>
+            집
+            <input id="sellerAddr">
+           <button id="sellerUpdateBtn">수정</button>
+           <button id="sellerUDeleteBtn">삭제</button>  
+        </div>
+    </div>
+
+    <div data-role="page" id="product">
+        <div data-role="header" data-position="fixed">
+            <a href="#menuPage" data-icon="arrow-l" data-transition="turn">뒤로</a>
+            <h1>상품</h1>
+        </div>
+        <div data-role="content">
+            <input id="p_name" placeholder="이름">
+            <input id="p_price" placeholder="가격">
+            <input id="p_stock" placeholder="재고">
+            <button id="p_btn">등록</button>
+            <hr>
+
+            <ul id="p_bbs" data-role="listview" data-inset="true">
+
+            </ul>
+            <table id="productPageControlTbl">
+                <tr>
+                    <td align="center"></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <div data-role="page" id="product2">
+        <div data-role="header" data-position="fixed">
+            <a href="#menuPage" data-icon="arrow-l" data-transition="turn">뒤로</a>
+            <h1>상품2</h1>
+        </div>
+        <div data-role="content">
+            <input id="pp_name" placeholder="이름">
+            <input id="pp_price" placeholder="가격">
+            <input id="pp_stock" placeholder="재고">
+            <button id="pp_btn">등록</button>
+            <hr>
+
+            <ul id="p_bbs2" data-role="listview" data-inset="true">
+               
+            </ul>
+            <table id="productPageControlTbl2">
+                <tr>
+                    <td align="center"></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+</body>
+
+</html>

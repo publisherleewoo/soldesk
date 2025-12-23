@@ -1,0 +1,25 @@
+#productBBS .txtType {
+    border: 2px solid red;
+}
+
+
+#productBBS #productBBSTbl {
+    background: brown;
+    color: white;
+
+}
+
+#productBBS #productBBSTbl th {
+    width: 150px;
+    border: 1px solid #fff;
+
+}
+
+#productBBS .dataTr {
+    background: white;
+    color: black
+}
+
+#productBBS .dataTr:hover {
+    background: burlywood
+}

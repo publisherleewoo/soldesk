@@ -1,0 +1,16 @@
+#titleImg{width:100%}
+
+#sellerPageControlTbl{
+    width: 100%;
+ }
+ #productPageControlTbl{
+    width: 100%;
+ }
+
+
+  #sellerPageControlTbl a{
+    margin:0 5px
+ }
+ #productPageControlTbl a{
+    margin:0 5px
+ }

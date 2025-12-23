@@ -1,0 +1,19 @@
+노드 설치후,
+npm install nodemon -g
+npm install express -g
+npm install express-generator@4 -g
+
+npm install mongojs
+
+
+npm install socket.io@2
+
+
+
+
+
+// Node.js 웹소켓 서버 구현에 특화
+// JS파일제공 -> 웹환경에서 사용 편리
+// 문법 간단
+// 실시간통신 ->동새에 여러작업 -> 멀티쓰레드 관련작업
+//  non-blocking IO에 특화된 js ->멀티쓰레드 신경안써도

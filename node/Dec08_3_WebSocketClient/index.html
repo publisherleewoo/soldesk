@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+  <script src="http://localhost:7777/socket.io/socket.io.js"></script>
+
+  <!-- <link rel="stylesheet" href="./css/index.css" /> -->
+  <!-- <script src="./js/index.js"></script> -->
+  <script>
+    $(function () {
+      //연결하면 서버쪽으로 connection 이라는 제목의 메세지를 자동 전송
+      //제목:connection
+      //내용:나랑 연결되는 소켓객체
+      var socket = io.connect("http://localhost:7777")
+
+      $("button").click(function () {
+        var msg = $('input').val();
+        socket.emit('abcd', msg)
+        $('input').val('');
+
+      });
+      socket.on('efgh', function (res) {
+        console.log(res);
+        alert(res)
+      })
+    })
+  </script>
+</head>
+
+<body>
+  <input><button>전송</button>
+
+
+</body>
+
+</html>

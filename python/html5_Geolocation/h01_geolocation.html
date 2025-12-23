@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        //GPS 없는 디바이스 : IP주소
+        //html 단독실행 -o
+        //서버에 올리면
+        // http -x
+        // https -o
+        navigator.geolocation.getCurrentPosition(function (loc) {
+            console.log(loc);
+            console.log('위도(지구의 가로줄) : ', loc.coords.latitude);
+            console.log('경도(지구의 세로줄) : ', loc.coords.longitude);
+        });
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html> 

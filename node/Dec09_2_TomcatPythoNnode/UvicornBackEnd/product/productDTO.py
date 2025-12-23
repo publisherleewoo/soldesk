@@ -7,10 +7,11 @@ class ProductDTO:
         try:
             con = connect('leewoo/3214@195.168.9.198:1521/xe')
             cur = con.cursor()
-            sql = 'select * from dec09_product'
+            # sql = 'select * from dec09_product order by p_name desc'
+            sql = 'select rownum AS rn, p_name,p_price FROM dec09_product ORDER BY RN desc'
             cur.execute(sql)
             product=[]
-            for name,price in cur:
+            for _,name,price in cur:
                 product.append({'name':name,'price':price})
             return product
         except Exception as e:

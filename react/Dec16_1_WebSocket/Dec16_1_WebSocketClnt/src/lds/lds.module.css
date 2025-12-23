@@ -1,0 +1,7 @@
+.ccc{
+    color:blue;
+}
+
+:global .ddd{
+    color:orange;
+}

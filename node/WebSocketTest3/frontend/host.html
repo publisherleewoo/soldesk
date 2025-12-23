@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="http://localhost:9999/socket.io/socket.io.js"></script>
+    <style>
+        /* * {
+            margin: 0;
+            padding: 0;
+        } */
+    </style>
+    <script>
+        $(function () {
+            var socket = io.connect("http://localhost:9999")
+            var paper = document.getElementById('cv')
+            var pen = paper.getContext('2d')
+            var ballX = 135;
+            var ballY = 185;
+            var barX = 100;
+            var guestBarX = 100;
+
+            var xSpd = 0;
+            var ySpd = 0;
+            var xx = $('#cv').offset().left + 2
+            const ball = new Image();
+            ball.src = 'ball.png';
+
+            ball.onload = function () {
+                var t = setInterval(function () {
+                    pen.save()
+
+                    pen.fillStyle = "#00000010"
+                    pen.fillRect(0, 0, 300, 400)
+
+                    pen.shadowOffsetX = 3;
+                    pen.shadowOffsetY = 3;
+                    pen.shadowBlur = 15;
+                    pen.shadowColor = 'yellow';
+
+                    if (ballX >= 270 || ballX <= 0) {
+                        xSpd *= -1;
+                    }
+ 
+                    if (ballY <= 0) {
+                        clearInterval(t)
+                        alert('승리')
+                    }
+                    if ((
+                        ballY <= 15 &&
+                        ballX >= guestBarX - 15 &&
+                        ballX <= guestBarX + 85
+                    ) ||
+                        (ballY >= 355 &&
+                            ballX >= barX - 15 &&
+                            ballX <= barX + 85
+                        )) {
+                        ySpd *= -1;
+
+                    }
+
+                    if (ballY >= 370) {
+                        clearInterval(t)
+                        alert('패배')
+                    }
+
+                    ballX += xSpd
+                    ballY += ySpd
+
+                    pen.drawImage(ball, ballX, ballY);
+                    pen.fillStyle = 'white'
+                    pen.fillRect(barX, 380, 100, 20)
+
+                    pen.fillStyle = 'red'
+                    pen.fillRect(guestBarX, 0, 100, 20)
+
+                    pen.restore();
+                }, 15)
+                $('#cv').mousemove(function (e) {
+                    barX = e.pageX - xx - 50;
+                    socket.emit('hostBarX', barX)
+                })
+
+            };
+
+            $("#cv").click(function () {
+                socket.emit('start', 'start')
+            })
+
+            socket.on('start2', function (msg) {
+                xSpd = 3;
+                ySpd = 3;
+            })
+            socket.on('guestBarX2', function (msg) {
+                guestBarX = 300 - msg - 100
+            })
+
+        })
+    </script>
+</head>
+
+<body>
+    <canvas id="cv" width="300" height="400" style="border:2px solid black">
+
+    </canvas>
+
+
+</body>
+
+</html>

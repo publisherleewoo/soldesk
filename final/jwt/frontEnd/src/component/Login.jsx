@@ -49,20 +49,21 @@ const Login = () => {
    };
 
    const updateJWT = () => {
-     axios
+      console.log(sessionStorage.getItem("myJWT"));
+      axios
          .get(
             `http://localhost:9999/student.jwt.update?jwt=${sessionStorage.getItem(
                "myJWT"
             )}`
          )
-         .then((res) =>{
+         .then((res) => {
             console.log(res.data);
-            sessionStorage.setItem('myJWT',res.data)
+            sessionStorage.setItem("myJWT", res.data.myJWT);
          })
          .catch((err) => alert(err));
    };
    const deleteJWT = () => {
-    sessionStorage.removeItem('myJWT')
+      sessionStorage.removeItem("myJWT");
    };
 
    return (
@@ -83,7 +84,7 @@ const Login = () => {
          <br />
          <button onClick={clickBtn}>JWT만들기</button>
          <button onClick={showStudent}>JWT확인하기</button>
-         <button onClick={showStudent2}>JWT복화로풀기</button>
+         <button onClick={showStudent2}>JWT복호화로풀기</button>
          <button onClick={updateJWT}>JWT갱신하기</button>
          <button onClick={deleteJWT}>JWT삭제하기</button>
       </div>
