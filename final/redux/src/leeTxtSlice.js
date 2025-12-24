@@ -7,26 +7,20 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-    fontSize: 30,  // 설정 1
-    
+    val: ""
 }
 
-const leeSizeSlice = createSlice({
+const leeTxtSlice = createSlice({
     name: "abcd", //슬라이스 이름
     initialState,
     reducers: {
-        //설정 2 함수:=>{값}
-        sizeUp: (currentState, action) => {
-            currentState.fontSize += 10;
-        },
-        sizeDown: (currentState, action) => {
-            currentState.fontSize -= 10;
-        },
-       
+        changeFunc: (currentState, action) => {
+            currentState.val = action.payload;
+        }
     }
 });
 
 //설정 3 export{보낼 함수명1,보낼 함수명2}
-export const { sizeUp, sizeDown, changeFunc } = leeSizeSlice.actions
+export const {  changeFunc } = leeTxtSlice.actions
 
-export default leeSizeSlice.reducer
+export default leeTxtSlice.reducer
