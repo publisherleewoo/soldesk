@@ -20,3 +20,12 @@ createRoot(document.getElementById("root")).render(
       <App />
    </Provider>
 );
+
+
+
+//우리반 카페도 충분  -  > 나는 내 개인 기술카페 및 블로그
+//주제
+//회원
+//게시판
+//자료실
+//갤러리

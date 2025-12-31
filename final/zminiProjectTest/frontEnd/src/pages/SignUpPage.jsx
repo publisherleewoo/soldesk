@@ -4,20 +4,7 @@ import { useRef, useState } from "react";
 import axios from "axios";
 
 const SignUpPage = () => {
-   const [idValCheck, setIdValCheck] = useState(false);
-   const useInfo = useRef({
-      id: "",
-      pwd: "",
-      pwd2: "",
-      name: "",
-      birthday1: "",
-      birthday2: "",
-      birthday3: "",
-      postCode: "",
-      addr2: "",
-      addr3: "",
-      files: "",
-   });
+   const [idValCheck, setIdValCheck] = useState(true); //False로 바꾸기
 
    const idInput = useRef();
    const pwdInput = useRef();
@@ -46,46 +33,68 @@ const SignUpPage = () => {
 
    const handleJoin = (e) => {
       e.preventDefault();
+
+      const idCut = idInput.current;
+      const pwdCut = pwdInput.current;
+      const pwd2Cut = pwdInput2.current;
+      const birthCut = birth_select.current;
+      const birt2hCut = birth_select2.current;
+      const birth3Cut = birth_select3.current;
+      const postCodeCut = postCodeInput.current;
+      const postCode2Cut = postCodeInput2.current;
+      const postCode3Cut = postCodeInput3.current;
+      const fileCut = fileInput.current;
+
+      const nameCut = nameInput.current;
       if (idValCheck === false) {
          alert("아이디 체크 해주세요");
          return false;
       }
-      if (pwdInput.current.value.length < 5) {
-         alert("비밀번호가 너무 짧습니다");
+      if (pwdCut.value.length < 5) {
+         alert("비밀번호가 너무 짧습니다. 5글자 이상으로 해주세요.");
          return false;
       }
-      if (pwdInput.current.value !== pwdInput2.current.value) {
+      if (pwdCut.value !== pwd2Cut.value) {
          alert("비밀번호가 다릅니다");
          return false;
       }
+      
+      if (
+         idCut.value == "" ||
+         pwdCut.value == "" ||
+         pwd2Cut.value == "" ||
+         nameCut.value == "" ||
+         birthCut.value == "" ||
+         birt2hCut.value == "" ||
+         birth3Cut.value == "" ||
+         postCodeCut.value == "" ||
+         postCode2Cut.value == "" ||
+         postCode3Cut.value == "" ||
+         fileCut.value == ""
+      ) {
+         alert("입력창이 비었습니다");
+         return false;
+      }
 
-      useInfo.current.id = idInput.current.value;
-      useInfo.current.pwd = pwdInput.current.value;
-      useInfo.current.pwd2 = pwdInput2.current.value;
-      useInfo.current.name = nameInput.current.value;
-      useInfo.current.birthday1 = birth_select.current.value;
-      useInfo.current.birthday2 = birth_select2.current.value;
-      useInfo.current.birthday3 = birth_select3.current.value;
-      useInfo.current.postCode = postCodeInput.current.value;
-      useInfo.current.addr2 = postCodeInput2.current.value;
-      useInfo.current.addr3 = postCodeInput3.current.value;
-      useInfo.current.files = fileInput.current.files[0];
+      const hangeulRegex = /^[ㄱ-ㅎㅏ-ㅣ가-힣]+$/;
+
+      if (nameCut.value && !hangeulRegex.test(nameCut.value)) {
+         alert("이름은 한글만 입력 가능합니다.");
+         nameCut.focus();
+         return false;
+      }
 
       const fd = new FormData();
-      fd.append("id", useInfo.current.id);
-      fd.append("pwd", useInfo.current.pwd);
-      fd.append("name", useInfo.current.name);
+      fd.append("id", idCut.value);
+      fd.append("pwd", pwdCut.value);
+      fd.append("name", nameInput.current.value);
       fd.append(
          "birthday",
-         useInfo.current.birthday1 +
-            "-" +
-            useInfo.current.birthday2 +
-            "-" +
-            useInfo.current.birthday3
+         birthCut.value + "-" + birt2hCut.value + "-" + birth3Cut.value
       );
-      fd.append("postCode", useInfo.current.postCode);
-      fd.append("addr", useInfo.current.addr2 + useInfo.current.addr3);
-      fd.append("files", useInfo.current.files);
+      fd.append("postCode", postCodeCut.value);
+      fd.append("addr", postCode2Cut.value + "∴" + postCode3Cut.value);
+      fd.append("files", fileCut.files[0]);
       axios
          .post(`http://localhost:9999/sign.up`, fd, {
             withCredentials: true,
@@ -95,17 +104,19 @@ const SignUpPage = () => {
             if (res.data.msg === "등록 성공") {
                alert("등록 성공");
                console.log(res.data.msg);
-               idInput.current.value = "";
-               pwdInput.current.value = "";
-               pwdInput2.current.value = "";
+               idCut.value = "";
+               pwdCut.value = "";
+               pwd2Cut.value = "";
                nameInput.current.value = "";
-               birth_select.current.value = "";
-               birth_select2.current.value = "";
-               birth_select3.current.value = "";
-               postCodeInput.current.value = "";
-               postCodeInput2.current.value = "";
-               postCodeInput3.current.value = "";
-               fileInput.current.value = "";
+               birthCut.value = "";
+               birt2hCut.value = "";
+               birth3Cut.value = "";
+               postCodeCut.value = "";
+               postCode2Cut.value = "";
+               postCode3Cut.value = "";
+               fileCut.value = "";
+            } else {
+               alert(res.data.msg);
             }
          })
          .catch((err) => alert(err));
@@ -117,7 +128,8 @@ const SignUpPage = () => {
    for (let i = currentYear; i >= 1920; i--) {
       years.push(i);
    }
-
+   // id필수,한글x,최대10자,
+   // pw필수,4자이상,숫자하나,최대10자
    const months = Array.from({ length: 12 }, (_, i) => i + 1);
    const days = Array.from({ length: 31 }, (_, i) => i + 1);
    const showAdressSearchPopup = () => {

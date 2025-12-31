@@ -7,6 +7,7 @@ import WrapLayout from "../layout/WrapLayout";
 import ErrorPage from "../pages/ErrorPage";
 import LoginPage from "../pages/LoginPage";
 import SignUpPage from "../pages/SignUpPage";
+import UserInfoPage from "../pages/UserInfoPage";
 
 const Main = () => {
    return (
@@ -20,6 +21,7 @@ const Main = () => {
             </Route>
             <Route path="/login" element={<LoginPage />}></Route>
             <Route path="/signUp" element={<SignUpPage />}></Route>
+            <Route path="/userInfo" element={<UserInfoPage />}></Route>
             <Route path="*" element={<ErrorPage />}></Route>
          </Routes>
       </div>

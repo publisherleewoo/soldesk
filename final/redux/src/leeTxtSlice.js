@@ -15,6 +15,7 @@ const leeTxtSlice = createSlice({
     initialState,
     reducers: {
         changeFunc: (currentState, action) => {
+            // action.payload : dispathcer쪽에서 보내준 값
             currentState.val = action.payload;
         }
     }
