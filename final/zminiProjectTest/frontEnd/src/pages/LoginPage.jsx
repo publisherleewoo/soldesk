@@ -14,8 +14,6 @@ const LoginPage = () => {
       const inCnt = idInput.current;
       const pwdCnt = pwdInput.current;
       const fd = new FormData();
-      console.log(inCnt.value);
-      console.log(pwdCnt.value);
       fd.append("id", inCnt.value);
       fd.append("pwd", pwdCnt.value);
 
@@ -27,6 +25,7 @@ const LoginPage = () => {
                alert(res.data.msg);
                sessionStorage.setItem("loginMember", res.data.member);
                d(setLoginMember(res.data.member))
+               // token값이 아니라 최소한의 로그인 정보를 담아야한다. 위의 res.data.member는 token값임
                navi("/")
             }else{
                alert(res.data.msg)

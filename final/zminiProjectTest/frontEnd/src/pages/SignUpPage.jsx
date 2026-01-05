@@ -4,7 +4,7 @@ import { useRef, useState } from "react";
 import axios from "axios";
 
 const SignUpPage = () => {
-   const [idValCheck, setIdValCheck] = useState(true); //False로 바꾸기
+   const [idValCheck, setIdValCheck] = useState(false); //False로 바꾸기
 
    const idInput = useRef();
    const pwdInput = useRef();
