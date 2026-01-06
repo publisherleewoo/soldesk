@@ -1,2 +1,186 @@
-#SecondPage .main{float:left; width:80%; height:100vh; }
-#SecondPage .nav{float:left;width:20%; }
+#SecondPage {
+  padding: 25px;
+  background-color: #fff;
+  min-height: 80vh;
+  display: block;
+  overflow: hidden;
+  font-family: 'Malgun Gothic', '맑은 고딕', sans-serif;
+}
+
+/* 사이드바 디자인 */
+#SecondPage .side_bar {
+  float: left;
+  width: 200px;
+  border: 2px solid #000; /* 두꺼운 검은색 보더 */
+}
+
+#SecondPage .side_title {
+  background-color: #000;
+  color: #fff;
+  padding: 15px;
+  font-weight: bold;
+  text-align: center;
+  font-size: 16px;
+  letter-spacing: 1px;
+}
+
+#SecondPage .side_bar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+#SecondPage .side_bar li {
+  padding: 15px;
+  border-bottom: 1px solid #000;
+  cursor: pointer;
+  text-align: center;
+  font-size: 14px;
+  transition: 0.2s;
+}
+
+#SecondPage .side_bar li:last-child {
+  border-bottom: none;
+}
+
+#SecondPage .side_bar li:hover {
+  background-color: #f0f0f0;
+}
+
+#SecondPage .side_bar li.active {
+  background-color: #eee;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+/* 메인 게시판 디자인 */
+#SecondPage .main_board {
+  float: left;
+  margin-left: 30px;
+  width: calc(100% - 260px);
+}
+
+#SecondPage .board_header_text {
+  border-bottom: 3px solid #000;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+}
+
+#SecondPage .board_header_text h3 {
+  margin: 0;
+  font-size: 24px;
+}
+
+#SecondPage .board_header_text p {
+  margin: 5px 0 0 0;
+  font-size: 13px;
+  color: #555;
+}
+
+/* 게시판 테이블 디자인 */
+#SecondPage .board_list {
+  width: 100%;
+  border-collapse: collapse;
+  border-top: 2px solid #000;
+  border-bottom: 2px solid #000;
+}
+
+#SecondPage .board_list th {
+  background-color: #f5f5f5;
+  border-bottom: 1px solid #000;
+  padding: 12px;
+  font-size: 14px;
+}
+
+#SecondPage .board_list td {
+  padding: 12px;
+  border-bottom: 1px solid #e0e0e0;
+  text-align: center;
+  font-size: 14px;
+}
+
+#SecondPage .board_list td.title_cell {
+  text-align: left;
+  padding-left: 15px;
+  cursor: pointer;
+}
+
+#SecondPage .board_list td.title_cell:hover {
+  text-decoration: underline;
+}
+
+#SecondPage .board_top {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom:20px
+}
+
+#SecondPage .search_area select,
+.search_area input {
+  padding: 8px;
+  border: 1px solid #000;
+  outline: none;
+  font-size: 13px;
+}
+
+#SecondPage .black_btn_sm {
+  background-color: #333;
+  color: #fff;
+  border: 1px solid #000;
+  padding: 8px 15px;
+  cursor: pointer;
+  margin-left: 5px;
+}
+
+#SecondPage .black_btn_lg {
+  background-color: #000;
+  color: #fff;
+  border: none;
+  padding: 10px 30px;
+  font-weight: bold;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+#SecondPage .black_btn_lg:hover {
+  background-color: #444;
+}
+
+
+/* 화면 전체를 덮는 반투명 검정 배경 */
+#SecondPage .modal_overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6); /* 배경 어둡게 */
+  display: flex;
+  justify-content: center; /* 가로 중앙 정렬 */
+  align-items: center;     /* 세로 중앙 정렬 */
+  z-index: 1000;           /* 다른 요소보다 위에 오도록 */
+}
+
+/* 실제 글쓰기 창 박스 */
+#SecondPage .modal_content {
+  background-color: white;
+  padding: 30px;
+  border-radius: 8px;
+  width: 500px;            /* 원하는 너비 조절 */
+  max-width: 90%;          /* 모바일 대응 */
+  position: relative;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* 우측 상단 닫기 버튼 (선택사항) */
+#SecondPage .close_btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+}

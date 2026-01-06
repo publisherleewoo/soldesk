@@ -1,11 +1,11 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./SignUpPage.css";
 import { useRef, useState } from "react";
 import axios from "axios";
 
 const SignUpPage = () => {
-   const [idValCheck, setIdValCheck] = useState(false); //False로 바꾸기
-
+   const [idValCheck, setIdValCheck] = useState(false); 
+   const navi = useNavigate()
    const idInput = useRef();
    const pwdInput = useRef();
    const pwdInput2 = useRef();
@@ -103,7 +103,6 @@ const SignUpPage = () => {
          .then((res) => {
             if (res.data.msg === "등록 성공") {
                alert("등록 성공");
-               console.log(res.data.msg);
                idCut.value = "";
                pwdCut.value = "";
                pwd2Cut.value = "";
@@ -115,6 +114,7 @@ const SignUpPage = () => {
                postCode2Cut.value = "";
                postCode3Cut.value = "";
                fileCut.value = "";
+               navi('/login')
             } else {
                alert(res.data.msg);
             }
@@ -128,8 +128,6 @@ const SignUpPage = () => {
    for (let i = currentYear; i >= 1920; i--) {
       years.push(i);
    }
-   // id필수,한글x,최대10자,
-   // pw필수,4자이상,숫자하나,최대10자
    const months = Array.from({ length: 12 }, (_, i) => i + 1);
    const days = Array.from({ length: 31 }, (_, i) => i + 1);
    const showAdressSearchPopup = () => {

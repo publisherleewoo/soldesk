@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import "./SignUpPage.css";
 import { useEffect, useRef, useState } from "react";
 import axios from "axios";
-import { useSelector } from "react-redux";
+ 
 
 const SignUpPage = () => {
   //  const [idValCheck] = useState(true); //False로 바꾸기
@@ -20,15 +20,7 @@ const SignUpPage = () => {
    const fileInput = useRef();
    const [fileInputVal, setFileInputVal] = useState("");
    
-   const u = useSelector((store)=>{
-      store.ms.loginMember
-    })
    useEffect(() => {
-
- 
-
-    
-    console.log(u);
       axios
          .get(
             `http://localhost:9999/member.info.get?member=${sessionStorage.getItem(
@@ -36,19 +28,16 @@ const SignUpPage = () => {
             )}`
          )
          .then((res) => {
-            console.log(res.data);
-            idInput.current.value = res.data.id;
-            birth_select.current.value = res.data.birth.split("-")[0];
-            birth_select2.current.value = Number(res.data.birth.split("-")[1]);
-            birth_select3.current.value = Number(res.data.birth.split("-")[2]);
-            postCodeInput.current.value = res.data.postcode;
-            postCodeInput2.current.value = res.data.addr.split("∴")[0];
-            postCodeInput3.current.value = res.data.addr.split("∴")[1];
-            nameInput.current.value = res.data.name;
-            console.log(res.data.filename
+            idInput.current.value = res.data.member.id;
+            birth_select.current.value = res.data.member.birth.split("-")[0];
+            birth_select2.current.value = Number(res.data.member.birth.split("-")[1]);
+            birth_select3.current.value = Number(res.data.member.birth.split("-")[2]);
+            postCodeInput.current.value = res.data.member.postcode;
+            postCodeInput2.current.value = res.data.member.addr.split("∴")[0];
+            postCodeInput3.current.value = res.data.member.addr.split("∴")[1];
+            nameInput.current.value = res.data.member.name;
 
-            );
-            setFileInputVal(res.data.filename);
+            setFileInputVal(res.data.member.filename);
          });
    }, []);
 
@@ -100,8 +89,7 @@ const SignUpPage = () => {
          nameCut.focus();
          return false;
       }
-      console.log(pwdCut.value);
-      console.log(newPwdCut.value);
+
       const fd = new FormData();
       fd.append("id", idCut.value);
       fd.append("pwd", pwdCut.value);
@@ -123,7 +111,6 @@ const SignUpPage = () => {
          .then((res) => {
             if (res.data.msg === "업데이트 성공") {
                alert("업데이트 성공");
-               console.log(res.data.msg);
                idCut.value = "";
                pwdCut.value = "";
                newPwdCut.value = "";
@@ -264,7 +251,7 @@ const SignUpPage = () => {
          <div className="row">
             <label>Photo</label>
             {fileInputVal ? (
-               <img src={`http://localhost:9999/get.file/${fileInputVal}`} />
+               <img width="100px" src={`http://localhost:9999/get.file/${fileInputVal}`} />
             ) : null}
             <input
                ref={fileInput}

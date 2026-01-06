@@ -18,12 +18,13 @@ const LoginPage = () => {
       fd.append("pwd", pwdCnt.value);
 
 
+
       axios
          .post("http://localhost:9999/login", fd, { withCredentials: true })
          .then((res) => {
             if (res.data.msg === "로그인 성공") {
                alert(res.data.msg);
-               sessionStorage.setItem("loginMember", res.data.member);
+               sessionStorage.setItem("loginMember", res.data.memberToken);
                d(setLoginMember(res.data.member))
                // token값이 아니라 최소한의 로그인 정보를 담아야한다. 위의 res.data.member는 token값임
                navi("/")
@@ -45,7 +46,7 @@ const LoginPage = () => {
                   type="text"
                   className="id_input"
                   ref={idInput}
-                  placeholder="아이디 입력"
+                  placeholder="아이디 입력" onKeyUp={(e)=>e.code === 'Enter' ? handleLoign():null}
                />
             </div>
 
@@ -54,7 +55,7 @@ const LoginPage = () => {
                <input
                   type="password"
                   ref={pwdInput}
-                  placeholder="비밀번호 입력"
+                  placeholder="비밀번호 입력"   onKeyUp={(e)=>e.code === 'Enter' ? handleLoign():null}
                />
             </div>
 
@@ -63,6 +64,7 @@ const LoginPage = () => {
                   type="button"
                   className="submit_btn"
                   onClick={handleLoign}
+               
                >
                   로그인
                </button>
@@ -84,3 +86,4 @@ const LoginPage = () => {
 };
 
 export default LoginPage;
+
