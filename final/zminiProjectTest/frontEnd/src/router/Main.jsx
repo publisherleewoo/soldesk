@@ -8,6 +8,7 @@ import ErrorPage from "../pages/ErrorPage";
 import LoginPage from "../pages/LoginPage";
 import SignUpPage from "../pages/SignUpPage";
 import UserInfoPage from "../pages/UserInfoPage";
+import SecondDetailPage from "../pages/SecondDetailPage";
 
 const Main = () => {
    return (
@@ -18,6 +19,7 @@ const Main = () => {
                <Route path="/b" element={<SecondPage />}></Route>
                <Route path="/c" element={<ThirdPage />}></Route>
                <Route path="/d" element={<FourthPage />}></Route>
+               <Route path="/b/:no" element={<SecondDetailPage />}></Route>
             </Route>
             <Route path="/login" element={<LoginPage />}></Route>
             <Route path="/signUp" element={<SignUpPage />}></Route>

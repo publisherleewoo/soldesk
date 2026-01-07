@@ -1,49 +1,92 @@
 from fastapi import FastAPI, Form, UploadFile
 from fastapi.responses import FileResponse, JSONResponse
+from board.boardDAO import BoardDAO
 from user.userDAO import userDAO
 
 
 app = FastAPI()
 uDAO = userDAO()
+bDAO = BoardDAO()
+
+
 
 @app.get("/")
 def get():
     return {"A": "B"}
 
+headerInfo = {'Access-Control-Allow-Origin':'http://localhost:5173','Access-Control-Allow-Credentials':'true'}
+
+
+
 @app.get('/id.check')
 def idcheck(u_id):
    result =  uDAO.idcheck(u_id)
    print(result)
-   return JSONResponse(result,headers={'Access-Control-Allow-Origin':'http://localhost:5173','Access-Control-Allow-Credentials':'true'})
+   return JSONResponse(result,headers=headerInfo)
 
 @app.post("/sign.up")
 async def signUp(files: UploadFile,id=Form(),pwd=Form(),name=Form(),postCode=Form(),birthday=Form(),addr=Form()):
     result = await uDAO.signUp(files,id,pwd,name,postCode,birthday,addr)
-    return JSONResponse(result,headers={'Access-Control-Allow-Origin':'http://localhost:5173','Access-Control-Allow-Credentials':'true'})
+    return JSONResponse(result,headers=headerInfo)
 
 @app.post("/login")
 def login(id=Form(), pwd=Form()):
     result = uDAO.login(id, pwd)
     print(result)
-    return JSONResponse(result,headers={'Access-Control-Allow-Origin':'http://localhost:5173','Access-Control-Allow-Credentials':'true'})
+    return JSONResponse(result,headers=headerInfo)
 
-@app.get('/sign.in.exp.refresh')
-def memberIdCheck(member):
-    print(member)
-    result = uDAO.signInExpRefresh(member)
-    return JSONResponse(result,headers={'Access-Control-Allow-Origin':'http://localhost:5173','Access-Control-Allow-Credentials':'true'})
+@app.post('/tokenCheck')
+def tokenCheck(memberToken=Form()):
+    result = uDAO.tokenCheck(memberToken)
+    print(result)
+    return JSONResponse(result,headers=headerInfo)
+
+# @app.get('/sign.in.exp.refresh')
+# def memberIdCheck(member):
+#     print(member)
+#     result = uDAO.signInExpRefresh(member)
+#     return JSONResponse(result,headers=headerInfo)
 
 @app.get('/get.file/{filename}')
 def getFile(filename):
+    print(filename)
     result = uDAO.getFile(filename)
-    return FileResponse(result,headers={'Access-Control-Allow-Origin':'http://localhost:5173','Access-Control-Allow-Credentials':'true'})
-#  id ,password, name, 사진,나이,이름
-
+    return FileResponse(result,headers=headerInfo)
 
 @app.get('/member.info.get')
-def getFile(member):
-    
-    pass
-    # result = uDAO.getFile(filename)
-    # return FileResponse(result,headers={'Access-Control-Allow-Origin':'http://localhost:5173','Access-Control-Allow-Credentials':'true'})
-#  id ,password, name, 사진,나이,이름
+def getInfo(member):
+    result = uDAO.getInfo(member)
+    print(result)
+    return JSONResponse(result,headers=headerInfo )
+   
+@app.post('/member.info.update')
+async def postInfo(files:UploadFile,id=Form(),pwd=Form(),newPwd=Form(),name=Form(),birthday=Form(),postCode=Form(),addr=Form(),):
+    result = await uDAO.updateInfo(files,id,pwd,newPwd,name,birthday,postCode,addr)
+    return JSONResponse(result,headers=headerInfo )
+
+
+@app.get('/board.get')
+def getBoard(nowPageNo):
+    print(nowPageNo)
+    result = bDAO.getBoard(nowPageNo)
+    return JSONResponse(result,headers=headerInfo)
+
+@app.post('/board.post')
+def postBoard(id=Form(),title=Form(),content=Form()):
+    result = bDAO.postBoard(id,title,content)
+    return JSONResponse(result,headers=headerInfo)
+
+
+@app.post('/board.update')
+def postBoard(boardNo=Form(), title=Form(),content=Form(),):
+    result = bDAO.updateBoard(boardNo,title,content)
+    return JSONResponse(result,headers=headerInfo)
+   
+
+@app.post('/board.delete')
+def postBoard(boardNo=Form()):
+    result = bDAO.deleteBoard(boardNo)
+    return JSONResponse(result,headers=headerInfo)
+   
+ 
+

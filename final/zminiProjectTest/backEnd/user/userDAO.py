@@ -1,7 +1,6 @@
 from datetime import datetime, timedelta, timezone
 from os import remove
 from uuid import uuid4
-from fastapi.responses import FileResponse
 import jwt
 from oracledb import connect
 
@@ -9,6 +8,97 @@ from oracledb import connect
 class userDAO:
     def __init__(self):
         pass
+
+
+    def idcheck(self,id):
+        try:
+            con = connect('leewoo/3214@195.168.9.198:1521/xe')
+            cur = con.cursor()
+            sql = "select count(*) from dec_miniproject where d_id='%s'" %(id)
+            cur.execute(sql)
+            for i in cur :
+                if( i[0] >= 1):
+                    return {"msg":"이미 존재하는 아이디입니다"}                    
+            return {"msg":"사용가능한 아이디입니다"}
+
+        except Exception as e:
+            print(e)
+            return {'msg':'에러'}
+        finally:
+            cur.close()
+            con.close()
+
+    def tokenCheck(self,memberToken):
+        try:
+            jwt.decode(memberToken,"abcd", "HS256")
+            return {"msg":"activeToken"}
+        except jwt.ExpiredSignatureError:
+            return {"msg": "만료"}
+        except jwt.DecodeError:
+            return {"msg": "정보없음"}
+        
+
+
+    async def updateInfo(self,files,id,pwd,newPwd,name,birthday,postCode,addr,):
+    
+
+        try:
+            con =connect("leewoo/3214@195.168.9.198:1521/xe")
+            cur = con.cursor()
+            sql = "select * from dec_miniproject where d_id='%s' AND d_pwd='%s'" %(id,pwd)
+            print(sql)
+            cur.execute(sql)
+            if(cur.fetchone()):
+                print('일치함')
+                binaryCode = await files.read()
+                if(len(binaryCode)>1024*1024*10):
+                    return {"msg": "이미지 용량이 너무 큽니다"}
+                try:
+                    filename= files.filename
+                    filetype = filename[-4:]
+                    filename = filename.replace(filetype,'')+'_'+str(uuid4())+filetype
+                    f = open('./user/images/'+filename,'wb')
+                    f.write(binaryCode)
+                    f.close()
+                 
+                    sql = "update dec_miniproject set d_pwd='%s', d_name='%s', d_postcode='%s', d_birth=to_date('%s','YYYY-MM-DD'),d_addr='%s',d_filename='%s' where d_id='%s'" %(newPwd,name,postCode,birthday,addr,filename,id)
+                    print(sql)
+                    cur.execute(sql)
+                    
+                    if(cur.rowcount ==1):
+                        con.commit()
+                        return {'msg':'업데이트 성공'}
+                except Exception as e:
+                    print(e)
+                    remove('./user/images/'+filename)
+                    return {'msg':'업데이트가 되지 않았습니다'}
+                
+            else:
+                return {'msg':"기존 비밀번호가 일치하지 않음"}
+        except Exception as e:
+            print(e)
+        finally:
+            cur.close()
+            con.close()
+
+    def getInfo(self, member):
+        try:
+            result = jwt.decode(member, "abcd", "HS256")
+
+            member = {
+                "id": result["id"],
+                "name": result["name"],
+                "postcode": result["postcode"],
+                "birth": result["birth"],
+                "addr": result["addr"],
+                "filename": result["filename"],
+            }
+            return {"msg":"activeToken","member":member}
+        except jwt.ExpiredSignatureError:
+            return {"msg": "만료"}
+
+        except jwt.DecodeError:
+            return {"msg": "정보없음"}
 
     async def signUp(
         self,
@@ -67,32 +157,10 @@ class userDAO:
                 cur.close()
                 con.close()
 
-    def signInExpRefresh(self, member):
-        try:
-            member = jwt.decode(member, "abcd", "HS256")
-            member = {
-                "id": member["id"],
-                "pwd": member["pwd"],
-                "name": member["name"],
-                "postcode": member["postcode"],
-                "birth": member["birth"],
-                "addr": member["addr"],
-                "filename": member["filename"],
-                "sysdate": member["sysdate"],
-                "exp":datetime.now(timezone.utc)+timedelta(seconds=10)
-            }
-            member=jwt.encode(member,'abcd','HS256')
+ 
 
-            return {'msg':'갱신완료','member':member}
-        except jwt.ExpiredSignatureError:
-            return {"msg": "만료"}
-      
-        except jwt.DecodeError:
-            return {"msg": "정보없음"}
-      
-
-    def getFile(self,filename):
-        return './user/images/'+filename
+    def getFile(self, filename):
+        return "./user/images/" + filename
 
     def login(self, id, inputPwd):
         try:
@@ -114,10 +182,10 @@ class userDAO:
                         "addr": addr,
                         "filename": filename,
                         "sysdate": datetime.strftime(sysdate, "%Y-%m-%d"),
-                        "exp": datetime.now(timezone.utc) + timedelta(seconds=10),
+                        "exp": datetime.now(timezone.utc) + timedelta(seconds=2700),
                     }
-                    member = jwt.encode(member, "abcd", "HS256")
-                    return {"msg": "로그인 성공", "member": member, "id": id}
+                    memberToken = jwt.encode(member, "abcd", "HS256")
+                    return {"msg": "로그인 성공", "memberToken": memberToken, "member":{"id":id,"name":name,"postcode":postcode,"birth":member["birth"],"addr":addr,"filename":filename}}
                 else:
                     return {"msg": "로그인 실패(pwd)"}
             if count == 0:
@@ -148,3 +216,27 @@ class userDAO:
         finally:
             cur.close()
             con.close()
+
+
+   # def signInExpRefresh(self, member):
+    #     try:
+    #         member = jwt.decode(member, "abcd", "HS256")
+    #         member = {
+    #             "id": member["id"],
+    #             "pwd": member["pwd"],
+    #             "name": member["name"],
+    #             "postcode": member["postcode"],
+    #             "birth": member["birth"],
+    #             "addr": member["addr"],
+    #             "filename": member["filename"],
+    #             "sysdate": member["sysdate"],
+    #             "exp": datetime.now(timezone.utc) + timedelta(seconds=10),
+    #         }
+    #         member = jwt.encode(member, "abcd", "HS256")
+
+    #         return {"msg": "갱신완료", "member": member}
+    #     except jwt.ExpiredSignatureError:
+    #         return {"msg": "만료"}
+
+    #     except jwt.DecodeError:
+    #         return {"msg": "정보없음"}

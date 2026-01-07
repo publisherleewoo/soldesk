@@ -15,7 +15,7 @@ from oracledb import connect
 
 f = open("C:/PythoneWorkspace/PythonPart2_OracleDB/seoulDust.csv", "a", encoding="utf-8")
 
-con = connect("leewoo/3214@195.168.9.53:1521/xe")
+con = connect("leewoo/3214@195.168.9.198:1521/xe")
 
 sql = "select * from seoul_dust"
 

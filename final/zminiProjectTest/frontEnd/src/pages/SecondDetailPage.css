@@ -1,0 +1,136 @@
+#detail_wrapper {
+  padding: 50px 20px;
+  background-color: #f9f9f9;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+}
+
+#detail_wrapper .detail_container {
+  width: 100%;
+  max-width: 800px;
+  background: #fff;
+  padding: 40px;
+  border: 1px solid #eee;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+
+#detail_wrapper .detail_header {
+  border-bottom: 2px solid #333;
+  padding-bottom: 20px;
+  margin-bottom: 30px;
+}
+
+#detail_wrapper .post_no {
+  font-size: 14px;
+  color: #888;
+  display: block;
+  margin-bottom: 8px;
+}
+
+#detail_wrapper .detail_title {
+  font-size: 28px;
+  font-weight: bold;
+  margin: 0 0 15px 0;
+  color: #111;
+}
+
+#detail_wrapper .post_info {
+  display: flex;
+  gap: 20px;
+  font-size: 14px;
+  color: #666;
+}
+
+#detail_wrapper .info_item strong {
+  color: #333;
+  margin-right: 5px;
+}
+
+#detail_wrapper .detail_content {
+  min-height: 300px;
+  line-height: 1.8;
+  font-size: 16px;
+  color: #444;
+  white-space: pre-wrap; /* 줄바꿈 유지 */
+  margin-bottom: 40px;
+}
+
+#detail_wrapper .detail_buttons {
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid #eee;
+  padding-top: 25px;
+}
+
+#detail_wrapper .detail_buttons button {
+  padding: 10px 24px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid #ddd;
+  transition: all 0.2s;
+}
+
+#detail_wrapper .back_btn {
+  background: #fff;
+  color: #333;
+}
+
+#detail_wrapper .back_btn:hover {
+  background: #f0f0f0;
+}
+
+#detail_wrapper .edit_group {
+  display: flex;
+  gap: 10px;
+}
+
+#detail_wrapper .edit_btn {
+  background: #333;
+  color: #fff;
+  border-color: #333 !important;
+}
+
+#detail_wrapper .edit_btn:hover {
+  background: #000;
+}
+
+#detail_wrapper .delete_btn {
+  background: #fff;
+  color: #ff4d4d;
+  border-color: #ff4d4d !important;
+}
+
+#detail_wrapper .delete_btn:hover {
+  background: #fff5f5;
+}
+
+
+  
+#detail_wrapper .detail_title_input {
+  width: 100%;
+  font-size: 16px;
+  margin-bottom: 15px;
+  padding: 5px 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  outline-color: #333;
+ 
+}
+
+ 
+#detail_wrapper .detail_content_input {
+  width: 100%;
+  min-height: 300px;
+  line-height: 1.8;
+  font-size: 16px;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  outline-color: #333;
+  resize: vertical;  
+  font-family: inherit;
+  margin-bottom: 40px;
+}
+ 

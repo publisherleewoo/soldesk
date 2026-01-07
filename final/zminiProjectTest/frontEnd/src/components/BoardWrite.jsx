@@ -2,10 +2,11 @@ import { useEffect, useRef } from "react";
 import { useTokenCheck } from "../../lib/useTokenCheck";
 import "./BoardWrite.css";
 import axios from "axios";
-import { useSelector } from "react-redux";
+import { useSelector } from "react-redux"; 
 
 const BoardWrite = ({ setBoardView }) => {
    const check = useTokenCheck();
+ 
    const writeInput = useRef();
    const writeTextarea = useRef();
    const loginMember = useSelector(store =>store.ms.loginMember)
@@ -26,6 +27,7 @@ const BoardWrite = ({ setBoardView }) => {
             if(res.data.msg === "등록완료"){
                alert('등록되었습니다')
                setBoardView(false)
+          
             }else{
                alert("등록실패했습니다")
             }
@@ -34,7 +36,7 @@ const BoardWrite = ({ setBoardView }) => {
    };
 
    return (
-      <div className="board_write_container">
+      <div id="board_write_container">
          <h2 className="write_title">게시글 작성</h2>
 
          <div className="input_group">
