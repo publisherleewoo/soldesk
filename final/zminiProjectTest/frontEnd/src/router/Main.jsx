@@ -9,6 +9,7 @@ import LoginPage from "../pages/LoginPage";
 import SignUpPage from "../pages/SignUpPage";
 import UserInfoPage from "../pages/UserInfoPage";
 import SecondDetailPage from "../pages/SecondDetailPage";
+import BoardUpdate from "../components/BoardUpdate";
 
 const Main = () => {
    return (
@@ -20,6 +21,7 @@ const Main = () => {
                <Route path="/c" element={<ThirdPage />}></Route>
                <Route path="/d" element={<FourthPage />}></Route>
                <Route path="/b/:no" element={<SecondDetailPage />}></Route>
+               <Route path="/b/:no/update" element={<BoardUpdate />}></Route>
             </Route>
             <Route path="/login" element={<LoginPage />}></Route>
             <Route path="/signUp" element={<SignUpPage />}></Route>

@@ -8,13 +8,13 @@ const boardSlice = createSlice({
     name: "boardSlice",
     initialState,
     reducers: {
-        setPostSlice: (state, action) => {
+        setBoardPostSlice: (state, action) => {
             state.post = action.payload
         }
         
     }
 });
 
-export const { setPostSlice } = boardSlice.actions
+export const { setBoardPostSlice } = boardSlice.actions
 
 export default boardSlice.reducer

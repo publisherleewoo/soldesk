@@ -1,11 +1,12 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./SignUpPage.css";
 import { useEffect, useRef, useState } from "react";
 import axios from "axios";
- 
+import { useDispatch } from "react-redux";
+import { setLoginMember } from "../store/memberSlice";
 
 const SignUpPage = () => {
-  //  const [idValCheck] = useState(true); //False로 바꾸기
+   //  const [idValCheck] = useState(true); //False로 바꾸기
    const idInput = useRef();
    const pwdInput = useRef();
    const newPwdInput = useRef();
@@ -19,7 +20,8 @@ const SignUpPage = () => {
    const postCodeInput3 = useRef();
    const fileInput = useRef();
    const [fileInputVal, setFileInputVal] = useState("");
-   
+   const dispatch = useDispatch()
+   const navi = useNavigate()
    useEffect(() => {
       axios
          .get(
@@ -30,8 +32,12 @@ const SignUpPage = () => {
          .then((res) => {
             idInput.current.value = res.data.member.id;
             birth_select.current.value = res.data.member.birth.split("-")[0];
-            birth_select2.current.value = Number(res.data.member.birth.split("-")[1]);
-            birth_select3.current.value = Number(res.data.member.birth.split("-")[2]);
+            birth_select2.current.value = Number(
+               res.data.member.birth.split("-")[1]
+            );
+            birth_select3.current.value = Number(
+               res.data.member.birth.split("-")[2]
+            );
             postCodeInput.current.value = res.data.member.postcode;
             postCodeInput2.current.value = res.data.member.addr.split("∴")[0];
             postCodeInput3.current.value = res.data.member.addr.split("∴")[1];
@@ -161,6 +167,24 @@ const SignUpPage = () => {
       }
    };
 
+   const handleByd = () => {
+      const memberToken = sessionStorage.getItem("loginMember");
+
+
+      axios
+         .get(`http://localhost:9999/member.bye?memberToken=${memberToken}`)
+         .then((res) => {
+            alert(res.data.msg);
+            sessionStorage.removeItem('loginMember')
+            dispatch(setLoginMember({}))
+            navi('/')
+
+         })
+         .catch((err) => {
+            alert(err);
+         });
+   };
+
    return (
       <div id="JoinWrap">
          <h3>update</h3>
@@ -251,25 +275,22 @@ const SignUpPage = () => {
          <div className="row">
             <label>Photo</label>
             {fileInputVal ? (
-               <img width="100px" src={`http://localhost:9999/get.file/${fileInputVal}`} />
+               <img
+                  width="100px"
+                  src={`http://localhost:9999/get.file/${fileInputVal}`}
+               />
             ) : null}
             <input
                ref={fileInput}
                type="file"
                accept="image/*"
                onChange={handleChange}
-            /> 
-            <br/>
-            
-               {preview ? (  
-                  <img
-                     src={preview}
-                     alt="미리보기"
-                     style={{ width: "100px" }}
-                  />
-             
-               ) : null}
-           
+            />
+            <br />
+
+            {preview ? (
+               <img src={preview} alt="미리보기" style={{ width: "100px" }} />
+            ) : null}
          </div>
 
          <div className="btn_area">
@@ -279,6 +300,9 @@ const SignUpPage = () => {
             <Link to={-1} className="back_btn">
                뒤로가기
             </Link>
+            <button type="button" className="submit_btn" onClick={handleByd}>
+               회원탈퇴하기
+            </button>
          </div>
       </div>
    );

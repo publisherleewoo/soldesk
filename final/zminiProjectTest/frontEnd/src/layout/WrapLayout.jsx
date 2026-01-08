@@ -22,7 +22,7 @@ const WrapLayout = () => {
    });
 
    const loginCheck = () => {
-      console.log(s);
+
       if (Object.keys(s).length === 0) {
          return (
             <>
@@ -31,7 +31,6 @@ const WrapLayout = () => {
             </>
          );
       } else {
-         console.log("실2");
          return (
             <>
                <Link to="/userInfo">회원정보</Link>

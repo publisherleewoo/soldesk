@@ -1,16 +1,20 @@
-import { useEffect, useState } from "react";
-import "./SecondPage.css";
 import axios from "axios";
-import BoardWrite from "../components/BoardWrite";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { setPostSlice } from "../store/boardSlice";
+import { useNavigate } from "react-router-dom";
+import { useTokenCheck } from "../../lib/useTokenCheck";
+import BoardWrite from "../components/BoardWrite";
+import { setBoardPostSlice } from "../store/boardSlice";
+import "./SecondPage.css";
+import SearchInput from "../components/SearchInput";
 
 const SecondPage = () => {
    const [posts, setPosts] = useState("");
    const [allPage, setAllPage] = useState(0);
+   const view = 5;
+   const [count, setCount] = useState(1);
    const [selectPage, setSelectPage] = useState(1);
-
+   const checkToken = useTokenCheck();
    const navi = useNavigate();
    const [boardView, setBoardView] = useState(false);
    const d = useDispatch();
@@ -25,20 +29,41 @@ const SecondPage = () => {
             }
          })
          .catch((err) => alert(err));
-   }, [d, boardView]);
+   }, [d, boardView,allPage]);
 
    const createBoard = () => {
-      //로그인이 안되어있으면 메인으로,
-      //상세페이지에 갔는데도 로그인이 안되어있으면 메인으로
+      const memberId = sessionStorage.getItem("loginMember");
+      if (memberId) {
+         checkToken(memberId);
+      } else {
+         alert("로그인해주세요");
+         navi("/login");
+      }
       setBoardView(true);
    };
 
    const gotoBoardDetail = (post) => {
       navi(`/b/${post.no}`);
-      d(setPostSlice(post));
+      d(setBoardPostSlice(post));
    };
 
+   // const inpRequestBoard = (str)=>{
+   //    axios.get(`http://localhost:9999/board.input.get?str=${str}`).then(res=>{
+   //       setPosts(res.data.boards)
+   //       // setAllPage(res.data.allPage)
+   //       // setSelectPage(1)
+   //       // setCount(1)
+   //       console.log(res.data.boards,res.data.allPage);
+   //    }
+   
+   
+   // ).catch(err=>alert(err))
+   // }
+
+
+
    const requestBoard = (i) => {
+
       axios
          .get(`http://localhost:9999/board.get?nowPageNo=${i}`)
          .then((res) => {
@@ -51,13 +76,16 @@ const SecondPage = () => {
 
    const pageList = () => {
       const listItem = [];
-      for (let i = 1; i <= allPage; i++) {
+
+      for (let i = view * (count - 1) + 1; i <= view * count; i++) {
+         if (i > allPage) break;
          let newlist = (
-            <li>
+            <li key={i}>
                <a
                   href="#"
                   className={selectPage == i ? "active" : null}
-                  onClick={() => {
+                  onClick={(e) => {
+                     e.preventDefault();
                      requestBoard(i);
                      setSelectPage(i);
                   }}
@@ -68,6 +96,7 @@ const SecondPage = () => {
          );
          listItem.push(newlist);
       }
+
       return listItem;
    };
 
@@ -89,14 +118,7 @@ const SecondPage = () => {
             </div>
 
             <div className="board_top">
-               <div className="search_area">
-                  <select>
-                     <option>제목</option>
-                     <option>작성자</option>
-                  </select>
-                  <input type="text" placeholder="검색어 입력" />
-                  <button className="black_btn_sm">검색</button>
-               </div>
+               {/* <SearchInput inpRequestBoard={inpRequestBoard}/> */}
                <button className="black_btn_lg" onClick={createBoard}>
                   글쓰기
                </button>
@@ -142,7 +164,42 @@ const SecondPage = () => {
                </tbody>
             </table>
 
-            <ul>{pageList()}</ul>
+            <ul>
+               <li>
+                  <button
+                     href="#"
+                     onClick={() => {
+                        if (1 < count) {
+                           let newCount = count - 1;
+                           setCount(newCount);
+                           const targetPage = newCount * view;
+                           setSelectPage(targetPage - 4);
+                           requestBoard(targetPage - 4);
+                        }
+                     }}
+                  >
+                     &lt;
+                  </button>
+               </li>
+
+               {pageList()}
+
+               <li>
+                  <button
+                     onClick={() => {
+                        if (count < Math.ceil(allPage / view)) {
+                           let newCount = count + 1;
+                           setCount(newCount);
+                           let targetPage = (newCount - 1) * view + 1;
+                           setSelectPage(targetPage);
+                           requestBoard(targetPage);
+                        }
+                     }}
+                  >
+                     &gt;
+                  </button>
+               </li>
+            </ul>
 
             {boardView && (
                <div className="modal_overlay">

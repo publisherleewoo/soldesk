@@ -5,15 +5,17 @@ import axios from "axios";
 import { useSelector } from "react-redux"; 
 
 const BoardWrite = ({ setBoardView }) => {
-   const check = useTokenCheck();
+   const checkToken = useTokenCheck();
  
    const writeInput = useRef();
    const writeTextarea = useRef();
    const loginMember = useSelector(store =>store.ms.loginMember)
 
    useEffect(() => {
-      check();
-      
+       const memberId = sessionStorage.getItem("loginMember");
+      if(memberId){
+         checkToken(memberId);
+      }
    }, []);
 
    const createBoardWrite = () => {
