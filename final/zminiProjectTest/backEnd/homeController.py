@@ -129,8 +129,15 @@ def postReply(boardNo=Form(),id=Form(),reply=Form()):
 
 @app.get("/board.reply.get")
 def getReply(postNo):   
-
     result = bDAO.getReply(postNo)
-    print(result)
     return JSONResponse(result, headers=headerInfo)
 
+@app.post("/board.reply.update")
+def updateReply(replyNo=Form(),reply=Form()):   
+    result = bDAO.updateReply(replyNo,reply)
+    return JSONResponse(result, headers=headerInfo)
+
+@app.post("/board.reply.delete")
+def deleteReply(replyNo=Form()):   
+    result = bDAO.deleteReply(replyNo)
+    return JSONResponse(result, headers=headerInfo)

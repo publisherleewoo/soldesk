@@ -8,30 +8,70 @@ class BoardDAO:
         self.allPostCount = None
         self.showPage = 5
 
+
+    def deleteReply(self,replyNo):
+        try:
+            con = connect("leewoo/3214@195.168.9.198:1521/xe")
+            cur = con.cursor()
+            sql = "delete dec_miniproject_board_reply where dbr_no=%s"%(replyNo)
+            cur.execute(sql)
+            print(sql)
+            if(cur.rowcount ==1):
+                con.commit()
+                return {"msg":"댓글삭제성공"}
+            return {"msg":"댓글삭제실패"}
+
+        except Exception as e:
+            print(e)
+            return {"msg":"댓글DB삭제실패"}
+        
+        finally:
+            cur.close()
+            con.close()
+
+
+    def updateReply(self,replyNo,reply):
+        try:
+            con = connect("leewoo/3214@195.168.9.198:1521/xe")
+            cur = con.cursor()
+            sql = "update dec_miniproject_board_reply set dbr_content='%s',dbr_date=sysdate where dbr_no='%s'"%(reply,replyNo)
+            cur.execute(sql)
+            print(sql)
+            if(cur.rowcount ==1):
+                con.commit()
+                return {"msg":"댓글수정성공"}
+            return {"msg":"댓글수정실패"}
+
+        except Exception as e:
+            print(e)
+            return {"msg":"댓글DB실패"}
+        
+        finally:
+            cur.close()
+            con.close()
+
+
     def getReply(self,postNo):
         try:
             con = connect("leewoo/3214@195.168.9.198:1521/xe")
             cur = con.cursor()
-            sql = "select * from dec_miniproject_board_reply where dbr_displayno = %s" %(postNo)
+            sql = "select * from dec_miniproject_board_reply where dbr_displayno = %s  order by dbr_no asc" %(postNo)
             cur.execute(sql)
             replys=[]
-            print("###########################")
             for no,writer,content,date,_ in cur:
                 date = datetime.strftime(date,'%Y-%m-%d')
                 replys.append({"no":no,"writer":writer,"content":content,"date":date})
             return {'msg':'조회성공',"replys":replys}
         except Exception as e:
             print(e)
-            return {'msg':'리플조회실패'}
+            return {'msg':'리플db조회실패'}
         finally:
             cur.close()
             con.close()
 
         pass
     def postReply(self, boardNo, id, reply):
-        print(boardNo)
-        print(id)
-        print(reply)
+        
         try:
             con = connect("leewoo/3214@195.168.9.198:1521/xe")
             cur = con.cursor()
