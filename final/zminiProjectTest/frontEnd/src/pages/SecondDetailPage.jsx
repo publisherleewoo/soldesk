@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import ComentList from "../components/ComentList";
+import CommentList from "../components/CommentList";
 import "./SecondDetailPage.css";
 import ReplyArea from "../components/ReplyArea";
 import axios from "axios";
@@ -35,19 +35,23 @@ const SecondDetailPage = () => {
    };
 
    const getReply = ()=>{
-       axios
+      if(!post.no){
+         navi('/b')
+      }
+      axios
          .get(`http://localhost:9999/board.reply.get?postNo=${post.no}`)
          .then((res) => {
+            console.log(res);
             if(res.data.msg==="조회성공"){
                setReplys(res.data.replys)
-            }else{
-               alert('리플조회실패')
-            }
+            } 
          })
          .catch((err) => alert(err));
    }
    useEffect(() => {
+      
      getReply()
+
    }, []);
 
    return (
@@ -89,11 +93,13 @@ const SecondDetailPage = () => {
             <section className="comment_section">
                <h3>댓글</h3>
 
-               {replys.map((r,i)=><ComentList
+               {replys.map((r,i)=><CommentList
                   key ={i}
+                  replyNo={r.no}
                   replyId={r.writer}
                   replyDate={r.date}
                   replyContnet={r.content}
+                  getReply={getReply}
                />
                )}
 

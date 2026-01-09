@@ -6,10 +6,12 @@ import { useEffect } from "react";
 // import { tokenCheck } from "../../lib/tokenCheck";
 import { setLoginMember } from "../store/memberSlice";
 
+ 
+
 const WrapLayout = () => {
    let d = useDispatch();
    let s = useSelector((store) => store.ms.loginMember);
- 
+
    useEffect(() => {
       // document.addEventListener("click", function () {
       //    tokenCheck(d);
@@ -22,7 +24,6 @@ const WrapLayout = () => {
    });
 
    const loginCheck = () => {
-
       if (Object.keys(s).length === 0) {
          return (
             <>
@@ -38,7 +39,6 @@ const WrapLayout = () => {
                   onClick={() => {
                      sessionStorage.removeItem("loginMember");
                      d(setLoginMember(""));
-                  
                   }}
                >
                   로그아웃

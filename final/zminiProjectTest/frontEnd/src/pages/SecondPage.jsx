@@ -1,27 +1,31 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useTokenCheck } from "../../lib/useTokenCheck";
 import BoardWrite from "../components/BoardWrite";
-import { setBoardPostSlice } from "../store/boardSlice";
+import { setBoardPostSlice,setCurrentPageSlice } from "../store/boardSlice";
 import "./SecondPage.css";
 import SearchInput from "../components/SearchInput";
 
 const SecondPage = () => {
+   const savedPage = useSelector((state) => state.bs.currentPage); 
    const [posts, setPosts] = useState("");
    const [allPage, setAllPage] = useState(0);
    const view = 5;
-   const [count, setCount] = useState(1);
-   const [selectPage, setSelectPage] = useState(1);
+   
+   const [count, setCount] = useState(Math.ceil(savedPage / view) || 1);
+   const [selectPage, setSelectPage] = useState(savedPage || 1);
+   
    const checkToken = useTokenCheck();
    const navi = useNavigate();
    const [boardView, setBoardView] = useState(false);
    const d = useDispatch();
 
    useEffect(() => {
+      // 처음 로드될 때 1페이지가 아닌, 기존에 보고 있던 selectPage로 요청
       axios
-         .get("http://localhost:9999/board.get?nowPageNo=1")
+         .get(`http://localhost:9999/board.get?nowPageNo=${selectPage}`)
          .then((res) => {
             if (res.data.msg === "성공") {
                setPosts(res.data.boards);
@@ -29,7 +33,7 @@ const SecondPage = () => {
             }
          })
          .catch((err) => alert(err));
-   }, [d, boardView,allPage]);
+   }, [d, boardView, allPage]); // 의존성 유지
 
    const createBoard = () => {
       const memberId = sessionStorage.getItem("loginMember");
@@ -43,27 +47,13 @@ const SecondPage = () => {
    };
 
    const gotoBoardDetail = (post) => {
+      // 상세페이지 가기 전 현재 페이지 번호를 Redux에 저장
+      d(setCurrentPageSlice(selectPage));
       navi(`/b/${post.no}`);
       d(setBoardPostSlice(post));
    };
 
-   // const inpRequestBoard = (str)=>{
-   //    axios.get(`http://localhost:9999/board.input.get?str=${str}`).then(res=>{
-   //       setPosts(res.data.boards)
-   //       // setAllPage(res.data.allPage)
-   //       // setSelectPage(1)
-   //       // setCount(1)
-   //       console.log(res.data.boards,res.data.allPage);
-   //    }
-   
-   
-   // ).catch(err=>alert(err))
-   // }
-
-
-
    const requestBoard = (i) => {
-
       axios
          .get(`http://localhost:9999/board.get?nowPageNo=${i}`)
          .then((res) => {
@@ -88,6 +78,8 @@ const SecondPage = () => {
                      e.preventDefault();
                      requestBoard(i);
                      setSelectPage(i);
+                     // 페이지 클릭할 때마다 Redux 업데이트
+                     d(setCurrentPageSlice(i));
                   }}
                >
                   {i}
@@ -102,23 +94,12 @@ const SecondPage = () => {
 
    return (
       <div id="SecondPage">
-         {/* <aside className="side_bar">
-            <div className="side_title">COMMUNITY</div>
-            <ul>
-               <li className="active">자유게시판</li>
-               <li>공지사항</li>
-               <li>자료실</li>
-               <li>문의하기</li>
-            </ul>
-         </aside> */}
-
          <section className="main_board">
             <div className="board_header_text">
                <h3>자유게시판</h3>
             </div>
 
             <div className="board_top">
-               {/* <SearchInput inpRequestBoard={inpRequestBoard}/> */}
                <button className="black_btn_lg" onClick={createBoard}>
                   글쓰기
                </button>
@@ -167,7 +148,6 @@ const SecondPage = () => {
             <ul>
                <li>
                   <button
-                     href="#"
                      onClick={() => {
                         if (1 < count) {
                            let newCount = count - 1;
@@ -175,6 +155,7 @@ const SecondPage = () => {
                            const targetPage = newCount * view;
                            setSelectPage(targetPage - 4);
                            requestBoard(targetPage - 4);
+                           d(setCurrentPageSlice(targetPage - 4));
                         }
                      }}
                   >
@@ -193,6 +174,7 @@ const SecondPage = () => {
                            let targetPage = (newCount - 1) * view + 1;
                            setSelectPage(targetPage);
                            requestBoard(targetPage);
+                           d(setCurrentPageSlice(targetPage));
                         }
                      }}
                   >

@@ -1,7 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-    post: {}
+    post: {},
+    currentPage: 1
 }
 
 const boardSlice = createSlice({
@@ -10,11 +11,13 @@ const boardSlice = createSlice({
     reducers: {
         setBoardPostSlice: (state, action) => {
             state.post = action.payload
+        },
+        setCurrentPageSlice: (state, action) => {
+            state.currentPage = action.payload;
         }
-        
     }
 });
 
-export const { setBoardPostSlice } = boardSlice.actions
+export const { setBoardPostSlice,setCurrentPageSlice } = boardSlice.actions
 
 export default boardSlice.reducer

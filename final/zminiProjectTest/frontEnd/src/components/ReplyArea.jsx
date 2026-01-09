@@ -5,7 +5,7 @@ const ReplyArea = ({ addReply }) => {
 
    const btnFunc = () => {
       addReply(replyTextarea.current.value);
-
+      replyTextarea.current.value="";
    };
 
    return (
