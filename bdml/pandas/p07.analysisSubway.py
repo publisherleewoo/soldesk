@@ -1,6 +1,6 @@
 import pandas as pd
 
-a =pd.read_csv("../numpy/test.csv",names=['년','월','일','호선','역','인풋','아웃풋'])
+a =pd.read_csv("../numpy/subway.csv",names=['년','월','일','호선','역','인풋','아웃풋'])
 print(a)
 df = pd.DataFrame(a)
 

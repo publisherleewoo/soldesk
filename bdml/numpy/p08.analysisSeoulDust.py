@@ -36,7 +36,7 @@ import numpy as np
 #     for a in cur:
 #         dustList.append(list(a))
 
-#     f = open("./test.csv", "w", newline="", encoding="utf-8-sig")
+#     f = open("./subwat.csv", "w", newline="", encoding="utf-8-sig")
 #     f.write(",".join(column_name) + "\n")
 
 #     for row in dustList:
